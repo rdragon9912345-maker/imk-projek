@@ -2,7 +2,7 @@
   "name": "imk-projek",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://rdragon9912345.github.io/imk-projek",
+  "homepage": "[https://rdragon9912345-maker.github.io/imk-projek](https://rdragon9912345-maker.github.io/imk-projek)",
   "type": "module",
   "scripts": {
     "dev": "vite",
