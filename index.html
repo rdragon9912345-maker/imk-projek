@@ -3,30 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Prototype UI E-TGT</title>
+    <title>Prototype UI E-TGT Premium</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
     <style>
       body {
-        font-family: "Inter", sans-serif;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background-color: #0f172a;
       }
 
       .custom-scrollbar::-webkit-scrollbar {
-        width: 6px;
-        height: 6px;
+        width: 4px;
+        height: 4px;
       }
       .custom-scrollbar::-webkit-scrollbar-track {
         background: transparent;
       }
       .custom-scrollbar::-webkit-scrollbar-thumb {
-        background: #cbd5e1;
+        background: rgba(148, 163, 184, 0.3);
         border-radius: 10px;
       }
       .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-        background: #94a3b8;
+        background: rgba(148, 163, 184, 0.6);
       }
       .hide-scroll::-webkit-scrollbar {
         display: none;
@@ -36,105 +37,130 @@
         scrollbar-width: none;
       }
 
-      @keyframes pulse-ring {
-        0% {
-          transform: scale(0.8);
-          opacity: 0.5;
-        }
-        100% {
-          transform: scale(1.5);
-          opacity: 0;
-        }
+      .glass-premium {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
       }
-      .animate-pulse-ring::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        border-radius: 9999px;
-        background-color: #3b82f6;
-        animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
-        z-index: -1;
-      }
-      @keyframes pop {
-        0% {
-          transform: scale(0);
-          opacity: 0;
-        }
-        80% {
-          transform: scale(1.1);
-          opacity: 1;
-        }
-        100% {
-          transform: scale(1);
-          opacity: 1;
-        }
-      }
-      .animate-pop {
-        animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        opacity: 0;
+      .glass-dark {
+        background: rgba(15, 23, 42, 0.65);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
       }
 
-      /* Animasi Smart Animate Tiruan (Roulette & Card Pull) */
-      @keyframes roulette-spin {
+      @keyframes float {
         0% {
-          transform: rotate(0deg);
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-8px);
         }
         100% {
-          transform: rotate(1080deg);
+          transform: translateY(0px);
         }
       }
-      .animate-roulette-spin {
-        animation: roulette-spin 3s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+      .animate-float {
+        animation: float 4s ease-in-out infinite;
+      }
+
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+        }
+        50% {
+          box-shadow: 0 0 30px rgba(239, 68, 68, 0.8);
+        }
+      }
+      .animate-pulse-glow {
+        animation: pulse-glow 2s infinite;
       }
 
       @keyframes pull-card {
         0% {
-          transform: translateY(0) scale(1) rotate(-10deg);
+          transform: translateY(30px) scale(0.8) rotate(-5deg);
           opacity: 0;
         }
         100% {
-          transform: translateY(-20px) scale(1.1) rotate(0deg);
+          transform: translateY(0) scale(1) rotate(0deg);
           opacity: 1;
         }
       }
       .animate-pull-card {
-        animation: pull-card 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+        animation: pull-card 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)
           forwards;
-        opacity: 0;
+      }
+
+      @keyframes slide-in {
+        0% {
+          transform: translateX(20px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      .animate-slide-in {
+        animation: slide-in 0.3s ease-out forwards;
+      }
+
+      .bg-mesh {
+        background-color: #f8fafc;
+        background-image:
+          radial-gradient(
+            at 0% 0%,
+            hsla(253, 16%, 7deg, 0.05) 0,
+            transparent 50%
+          ),
+          radial-gradient(
+            at 50% 0%,
+            hsla(225, 39%, 30deg, 0.05) 0,
+            transparent 50%
+          ),
+          radial-gradient(
+            at 100% 0%,
+            hsla(339, 49%, 30deg, 0.05) 0,
+            transparent 50%
+          );
       }
     </style>
   </head>
-  <body
-    class="bg-slate-900 h-screen flex flex-col overflow-hidden text-slate-800"
-  >
+  <body class="h-screen flex flex-col overflow-hidden text-slate-800">
     <!-- GLOBAL TOP BAR -->
     <div
-      class="bg-slate-800 border-b border-slate-700 px-6 py-3 flex justify-between items-center z-50 shrink-0"
+      class="bg-slate-950 border-b border-slate-800 px-6 py-3 flex justify-between items-center z-50 shrink-0"
     >
       <div class="flex items-center gap-3">
         <div
-          class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white text-lg shadow-[0_0_15px_rgba(37,99,235,0.5)]"
+          class="w-8 h-8 bg-gradient-to-tr from-blue-500 to-indigo-400 rounded-lg flex items-center justify-center font-black text-white text-lg shadow-[0_0_15px_rgba(59,130,246,0.3)]"
         >
           T
         </div>
-        <h1 class="text-white font-black tracking-widest uppercase text-sm">
-          E-TGT Prototype
+        <h1
+          class="text-white font-black tracking-widest uppercase text-xs drop-shadow-md"
+        >
+          E-TGT Platform
         </h1>
       </div>
       <div
-        class="flex gap-2 bg-slate-900 p-1 rounded-lg border border-slate-700"
+        class="flex gap-2 bg-slate-900 p-1 rounded-lg border border-slate-800 shadow-inner"
       >
         <button
           onclick="switchRole('siswa')"
           id="btn-role-siswa"
-          class="px-5 py-2 text-sm font-bold rounded-md bg-blue-600 text-white shadow transition-all"
+          class="px-4 py-2 text-xs font-bold rounded-md bg-blue-600 text-white shadow-md transition-all"
         >
           📱 Mode Siswa (HP)
         </button>
         <button
           onclick="switchRole('guru')"
           id="btn-role-guru"
-          class="px-5 py-2 text-sm font-bold rounded-md text-slate-400 hover:text-white transition-all"
+          class="px-4 py-2 text-xs font-bold rounded-md text-slate-400 hover:text-white transition-all"
         >
           💻 Mode Guru (Desktop)
         </button>
@@ -144,346 +170,351 @@
     <!-- EXTERNAL NAVIGATION CONTROLS (DEMO MODE) -->
     <div
       id="ext-nav-siswa"
-      class="bg-slate-900 px-4 py-3 flex justify-center gap-2 overflow-x-auto hide-scroll border-b border-slate-800 shrink-0 z-40 relative shadow-inner"
+      class="bg-slate-800 px-4 py-3 flex justify-center gap-2 overflow-x-auto z-40 relative shadow-inner border-t border-slate-700"
     >
       <span
-        class="text-slate-500 text-[10px] font-black uppercase tracking-widest mr-2 self-center whitespace-nowrap"
+        class="text-slate-400 text-[10px] font-black uppercase tracking-widest mr-2 self-center whitespace-nowrap"
         >Navigasi Siswa:</span
       >
       <button
         onclick="navSiswa('siswa-s1-login')"
-        class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-md transition-colors whitespace-nowrap border border-slate-700"
+        class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-white text-[11px] font-bold rounded-md transition-colors whitespace-nowrap"
       >
         1. Login
       </button>
       <button
         onclick="navSiswa('siswa-s0-home')"
-        class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-md transition-colors whitespace-nowrap border border-slate-700"
+        class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-white text-[11px] font-bold rounded-md transition-colors whitespace-nowrap"
       >
-        2. Beranda App
-      </button>
-      <button
-        onclick="navSiswa('siswa-s0-shop')"
-        class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-md transition-colors whitespace-nowrap border border-slate-700"
-      >
-        3. Toko Koin
-      </button>
-      <button
-        onclick="navSiswa('siswa-s0-history')"
-        class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-md transition-colors whitespace-nowrap border border-slate-700"
-      >
-        4. Riwayat
+        2. Beranda
       </button>
       <button
         onclick="navSiswa('siswa-s2-asal')"
-        class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-md transition-colors whitespace-nowrap border border-slate-700"
+        class="px-3 py-1.5 bg-indigo-900/50 hover:bg-indigo-800 text-indigo-300 text-[11px] font-bold border border-indigo-700/50 rounded-md transition-colors whitespace-nowrap"
       >
-        5. K. Asal (Belajar)
+        3. K. Asal (Materi)
       </button>
       <button
-        onclick="navSiswa('siswa-s3-meja')"
-        class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-md transition-colors whitespace-nowrap border border-slate-700"
+        onclick="navSiswa('siswa-s3-meja-aktif')"
+        class="px-3 py-1.5 bg-blue-900/50 hover:bg-blue-800 text-blue-300 text-[11px] font-bold border border-blue-700/50 rounded-md transition-colors whitespace-nowrap"
       >
-        6. Meja Turnamen
+        4. Meja (Kamu Jawab)
+      </button>
+      <button
+        onclick="navSiswa('siswa-s3-meja-pasif')"
+        class="px-3 py-1.5 bg-rose-900/50 hover:bg-rose-800 text-rose-300 text-[11px] font-bold border border-rose-700/50 rounded-md transition-colors whitespace-nowrap"
+      >
+        5. Meja (Lawan Jawab)
       </button>
       <button
         onclick="navSiswa('siswa-s4-hasil')"
-        class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-md transition-colors whitespace-nowrap border border-slate-700"
+        class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-white text-[11px] font-bold rounded-md transition-colors whitespace-nowrap"
       >
-        7. Hasil Akhir
+        6. Hasil
       </button>
     </div>
 
     <div
       id="ext-nav-guru"
-      class="bg-slate-900 px-4 py-3 justify-center gap-2 overflow-x-auto hide-scroll border-b border-slate-800 shrink-0 z-40 relative shadow-inner hidden"
+      class="bg-slate-800 px-4 py-3 flex justify-center gap-2 overflow-x-auto z-40 relative shadow-inner border-t border-slate-700 hidden"
     >
       <span
-        class="text-slate-500 text-[10px] font-black uppercase tracking-widest mr-2 self-center whitespace-nowrap"
+        class="text-slate-400 text-[10px] font-black uppercase tracking-widest mr-2 self-center whitespace-nowrap"
         >Navigasi Guru:</span
       >
       <button
         onclick="navGuru('guru-login')"
-        class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-md transition-colors whitespace-nowrap border border-slate-700"
+        class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-white text-[11px] font-bold rounded-md transition-colors whitespace-nowrap"
       >
         L. Login
       </button>
       <button
         onclick="navGuru('guru-s0-home')"
-        class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-md transition-colors whitespace-nowrap border border-slate-700"
+        class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-white text-[11px] font-bold rounded-md transition-colors whitespace-nowrap"
       >
         0. Beranda
       </button>
       <button
         onclick="navGuru('guru-s1-banksoal')"
-        class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-md transition-colors whitespace-nowrap border border-slate-700"
+        class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-white text-[11px] font-bold rounded-md transition-colors whitespace-nowrap"
       >
         1. Bank Soal
       </button>
       <button
         onclick="navGuru('guru-s2-setup')"
-        class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-md transition-colors whitespace-nowrap border border-slate-700"
+        class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-white text-[11px] font-bold rounded-md transition-colors whitespace-nowrap"
       >
         2. Setup Kelas
       </button>
       <button
         onclick="navGuru('guru-s3-waiting')"
-        class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-md transition-colors whitespace-nowrap border border-slate-700"
+        class="px-3 py-1.5 bg-indigo-900/50 hover:bg-indigo-800 text-indigo-300 text-[11px] font-bold rounded-md border border-indigo-700/50 transition-colors whitespace-nowrap"
       >
         3. Tunggu Siswa
       </button>
       <button
         onclick="navGuru('guru-s4-materi')"
-        class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-md transition-colors whitespace-nowrap border border-slate-700"
+        class="px-3 py-1.5 bg-amber-900/50 hover:bg-amber-800 text-amber-300 text-[11px] font-bold rounded-md border border-amber-700/50 transition-colors whitespace-nowrap"
       >
         4. Materi
       </button>
       <button
         onclick="navGuru('guru-s5-diskusi')"
-        class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-md transition-colors whitespace-nowrap border border-slate-700"
+        class="px-3 py-1.5 bg-amber-900/50 hover:bg-amber-800 text-amber-300 text-[11px] font-bold rounded-md border border-amber-700/50 transition-colors whitespace-nowrap"
       >
         5. Diskusi
       </button>
       <button
         onclick="navGuru('guru-s6-leaderboard')"
-        class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-md transition-colors whitespace-nowrap border border-slate-700"
+        class="px-3 py-1.5 bg-blue-900/50 hover:bg-blue-800 text-blue-300 text-[11px] font-bold rounded-md border border-blue-700/50 transition-colors whitespace-nowrap"
       >
         6. Leaderboard
       </button>
       <button
         onclick="navGuru('guru-s7-history')"
-        class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-md transition-colors whitespace-nowrap border border-slate-700"
+        class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-white text-[11px] font-bold rounded-md transition-colors whitespace-nowrap"
       >
-        7. Riwayat
-      </button>
-      <button
-        onclick="navGuru('guru-s8-detailreport')"
-        class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-md transition-colors whitespace-nowrap border border-slate-700"
-      >
-        8. Nilai
+        7. Nilai
       </button>
     </div>
 
     <!-- MAIN WORKSPACE -->
     <div
-      class="flex-1 w-full p-4 overflow-y-auto flex items-center justify-center relative custom-scrollbar bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-800 via-slate-900 to-black"
+      class="flex-1 w-full p-6 overflow-y-auto flex items-center justify-center relative custom-scrollbar bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-slate-800 via-slate-900 to-black"
     >
+      <div
+        class="absolute top-0 left-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"
+      ></div>
+      <div
+        class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none"
+      ></div>
+
       <!-- ========================================== -->
       <!-- VIEW 1: SISWA (MOBILE MODE)                -->
       <!-- ========================================== -->
       <div
         id="view-siswa"
-        class="w-[375px] h-[812px] bg-white rounded-[3rem] shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden relative border-[12px] border-slate-900 flex flex-col shrink-0"
+        class="w-[375px] h-[812px] bg-slate-50 rounded-[3rem] shadow-[0_0_60px_rgba(0,0,0,0.5)] overflow-hidden relative border-[12px] border-slate-900 flex flex-col shrink-0 ring-1 ring-white/10"
       >
         <!-- iPhone Dynamic Island -->
         <div
-          class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-7 bg-slate-900 rounded-b-3xl z-50"
+          class="absolute top-0 left-1/2 -translate-x-1/2 w-[120px] h-[30px] bg-slate-900 rounded-b-3xl z-[100]"
         ></div>
 
-        <!-- SISWA SCREEN 1: LOGIN (Update Form Login) -->
+        <!-- SISWA SCREEN 1: LOGIN -->
         <div
           id="siswa-s1-login"
           class="absolute inset-0 flex flex-col z-20 bg-slate-50"
         >
           <div
-            class="flex-1 flex flex-col items-center justify-center p-8 text-center"
+            class="flex-1 flex flex-col items-center justify-center p-8 text-center relative overflow-hidden bg-mesh"
           >
             <div
-              class="w-24 h-24 bg-gradient-to-br from-blue-500 to-indigo-600 text-white rounded-3xl flex items-center justify-center text-5xl font-black mb-6 shadow-xl shadow-blue-200"
+              class="absolute top-[-10%] right-[-20%] w-64 h-64 bg-blue-400/20 rounded-full blur-3xl pointer-events-none"
+            ></div>
+
+            <div
+              class="w-24 h-24 bg-gradient-to-br from-blue-500 to-indigo-600 text-white rounded-[2rem] flex items-center justify-center text-5xl font-black mb-6 shadow-2xl shadow-blue-500/30 border border-white/40 relative z-10 animate-float"
             >
               T
             </div>
-            <h1 class="text-3xl font-black text-slate-800 mb-2 tracking-tight">
+            <h1
+              class="text-3xl font-black text-slate-800 mb-2 tracking-tight relative z-10"
+            >
               E-TGT Arena
             </h1>
-            <p class="text-sm text-slate-500 font-medium mb-12">
-              Masuk menggunakan identitas siswa
+            <p class="text-sm text-slate-500 font-medium mb-12 relative z-10">
+              Masuk untuk memulai turnamen
             </p>
 
-            <div class="w-full space-y-5 text-left">
-              <div
-                class="bg-white p-2 rounded-2xl border-2 border-slate-100 shadow-sm"
-              >
+            <div
+              class="w-full space-y-4 text-left relative z-10 glass-premium p-6 rounded-[2rem]"
+            >
+              <div>
                 <label
-                  class="block text-[10px] font-black text-slate-400 uppercase tracking-widest px-3 pt-2"
-                  >Nomor Induk Siswa (NIS)</label
+                  class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1"
+                  >Nomor Induk Siswa</label
                 >
                 <input
                   type="text"
                   placeholder="Contoh: 12345"
-                  class="w-full bg-transparent p-3 font-bold text-slate-800 focus:outline-none text-lg"
+                  class="w-full bg-white/80 border border-slate-200 p-4 rounded-xl font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-sm shadow-inner"
                 />
               </div>
-              <div
-                class="bg-white p-2 rounded-2xl border-2 border-slate-100 shadow-sm relative"
-              >
+              <div class="relative">
                 <label
-                  class="block text-[10px] font-black text-slate-400 uppercase tracking-widest px-3 pt-2"
-                  >Tanggal Lahir</label
+                  class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1"
+                  >Kata Sandi</label
                 >
                 <input
-                  type="date"
-                  value="2008-05-12"
-                  class="w-full bg-transparent p-3 font-bold text-slate-800 focus:outline-none text-lg uppercase font-mono tracking-wider cursor-pointer"
+                  type="password"
+                  placeholder="••••••••"
+                  class="w-full bg-white/80 border border-slate-200 p-4 rounded-xl font-black text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-sm tracking-widest shadow-inner"
                 />
               </div>
               <button
                 onclick="navSiswa('siswa-s0-home')"
-                class="w-full bg-slate-900 hover:bg-slate-800 text-white font-black py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all mt-8 text-lg active:scale-95 flex items-center justify-center gap-2"
+                class="w-full bg-slate-900 hover:bg-slate-800 text-white font-black py-4 rounded-xl shadow-[0_10px_20px_rgba(0,0,0,0.1)] transition-transform active:scale-95 mt-4 text-sm flex items-center justify-center gap-2"
               >
-                MASUK APLIKASI ➔
+                MASUK ➔
               </button>
             </div>
           </div>
         </div>
 
-        <!-- SISWA SCREEN 2: HOMEPAGE (Hub) -->
+        <!-- SISWA SCREEN 2: HOMEPAGE (Bento Grid) -->
         <div
           id="siswa-s0-home"
-          class="absolute inset-0 flex flex-col hidden bg-slate-50 z-10"
+          class="absolute inset-0 flex flex-col hidden bg-mesh z-10"
         >
-          <!-- Home Header -->
+          <!-- Header Super Clean -->
           <header
-            class="bg-blue-600 px-6 pt-14 pb-10 text-white rounded-b-[2.5rem] shadow-md relative z-10 shrink-0"
+            class="glass-premium px-6 pt-12 pb-5 border-b border-white/50 relative z-20 shrink-0"
           >
-            <div
-              class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMTAiIGN5PSIxMCIgcj0iMiIgZmlsbD0iI2ZmZiIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3N2Zz4=')] opacity-50 rounded-b-[2.5rem]"
-            ></div>
-            <div class="flex justify-between items-start relative z-10">
+            <div class="flex justify-between items-center relative z-10">
               <div class="flex items-center gap-3">
                 <div class="relative">
                   <div
-                    class="w-12 h-12 bg-white rounded-full border-[3px] border-yellow-400 p-0.5 shadow-lg overflow-hidden"
+                    class="w-11 h-11 bg-white rounded-full border-2 border-indigo-500 shadow-sm overflow-hidden"
                   >
                     <img
-                      src="https://placehold.co/100x100/3b82f6/white?text=B"
-                      class="w-full h-full rounded-full"
+                      src="https://placehold.co/100x100/4f46e5/white?text=B"
+                      class="w-full h-full object-cover"
                       alt="Budi"
                     />
                   </div>
                   <div
-                    class="absolute -bottom-2 -right-2 bg-yellow-500 text-[10px] font-black px-2 py-0.5 rounded-full border border-white shadow-sm"
+                    class="absolute -bottom-1 -right-1 bg-gradient-to-r from-yellow-400 to-yellow-500 text-yellow-950 text-[8px] font-black px-1.5 py-0.5 rounded shadow-sm border border-yellow-200"
                   >
                     Lv.8
                   </div>
                 </div>
                 <div>
-                  <h2 class="font-black text-lg leading-none mb-1">
+                  <h2 class="font-black text-slate-800 text-sm leading-tight">
                     Budi Santoso
                   </h2>
                   <p
-                    class="text-blue-200 text-xs font-medium bg-blue-700/50 inline-block px-2 py-0.5 rounded-full"
+                    class="text-slate-500 text-[9px] font-bold uppercase tracking-wider"
                   >
                     XI MIPA 1
                   </p>
                 </div>
               </div>
-              <div class="flex flex-col items-end gap-2">
-                <div class="flex gap-2">
-                  <button
-                    class="w-8 h-8 bg-blue-500/80 hover:bg-blue-400 rounded-full flex items-center justify-center transition-colors backdrop-blur-sm text-sm border border-blue-400/50"
-                  >
-                    ⚙️
-                  </button>
-                  <button
-                    onclick="navSiswa('siswa-s1-login')"
-                    class="w-8 h-8 bg-rose-500/80 hover:bg-rose-400 rounded-full flex items-center justify-center transition-colors shadow-sm backdrop-blur-sm text-sm border border-rose-400/50"
-                  >
-                    🚪
-                  </button>
-                </div>
+              <!-- Koin dan Tombol Logout di Kanan -->
+              <div class="flex items-center gap-2">
                 <div
-                  class="bg-slate-900/40 px-3 py-1.5 rounded-full border border-blue-400/30 flex items-center gap-1.5 backdrop-blur-md mt-1 shadow-inner"
+                  class="bg-white px-2.5 py-1.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-1.5"
                 >
-                  <span class="text-sm drop-shadow-md">🪙</span>
-                  <span
-                    class="font-black text-yellow-400 tracking-wider text-sm"
-                    >1,250</span
-                  >
+                  <span class="text-sm drop-shadow-sm">🪙</span>
+                  <span class="font-black text-yellow-600 text-xs">1.2k</span>
                 </div>
+                <button
+                  onclick="navSiswa('siswa-s1-login')"
+                  class="w-8 h-8 bg-rose-50 hover:bg-rose-100 rounded-xl flex items-center justify-center transition-colors border border-rose-100 shadow-sm group"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 w-4 text-rose-500 group-hover:text-rose-600"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2.5"
+                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
           </header>
 
           <div
-            class="flex-1 overflow-y-auto custom-scrollbar relative z-0 -mt-6 pt-6 pb-28"
+            class="flex-1 overflow-y-auto custom-scrollbar relative z-0 p-5 pt-6 pb-32 space-y-4"
           >
-            <!-- Card: Join Room -->
-            <div class="px-5 mb-6">
+            <!-- Join Room Card (Prominent) -->
+            <div
+              class="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[2rem] p-6 shadow-[0_15px_30px_rgba(79,70,229,0.25)] relative overflow-hidden group"
+            >
               <div
-                class="bg-white rounded-3xl p-5 shadow-[0_10px_30px_rgba(0,0,0,0.05)] border border-slate-100 relative overflow-hidden"
+                class="absolute -right-4 -bottom-4 opacity-10 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-500"
               >
-                <div
-                  class="absolute -right-6 -top-6 text-7xl opacity-5 rotate-12"
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-40 w-40 text-white"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
                 >
-                  🎮
-                </div>
-                <h3
-                  class="font-black text-slate-800 text-lg mb-1 relative z-10"
-                >
-                  Mulai Pertempuran!
-                </h3>
-                <p
-                  class="text-xs text-slate-500 font-medium mb-4 relative z-10"
-                >
-                  Masukkan 6 digit PIN Room dari gurumu.
-                </p>
-
-                <div class="flex gap-2 relative z-10">
-                  <input
-                    type="text"
-                    placeholder="PIN KELAS"
-                    class="flex-1 bg-slate-50 border-2 border-slate-200 rounded-xl p-3 font-bold text-slate-800 focus:border-blue-500 outline-none uppercase font-mono tracking-widest text-center text-sm transition-colors"
+                  <path
+                    d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"
                   />
-                  <button
-                    onclick="navSiswa('siswa-s2-asal')"
-                    class="bg-gradient-to-b from-blue-500 to-blue-700 hover:to-blue-800 text-white font-black px-6 rounded-xl shadow-[0_4px_0_rgb(30,64,175)] active:translate-y-[4px] active:shadow-[0_0px_0_rgb(30,64,175)] transition-all"
-                  >
-                    GAS!
-                  </button>
-                </div>
+                </svg>
+              </div>
+
+              <h3
+                class="font-black text-white text-xl mb-1 relative z-10 drop-shadow-sm"
+              >
+                Gabung Kelas!
+              </h3>
+              <p
+                class="text-[11px] text-blue-100 font-medium mb-5 relative z-10 w-4/5 leading-tight"
+              >
+                Masukkan PIN unik yang ditampilkan di proyektor Guru.
+              </p>
+
+              <div
+                class="flex gap-2 relative z-10 bg-white/10 p-1.5 rounded-2xl backdrop-blur-md border border-white/20 focus-within:bg-white/20 transition-all shadow-inner"
+              >
+                <input
+                  type="text"
+                  placeholder="PIN KELAS"
+                  class="flex-1 bg-transparent border-none p-2 font-black text-white placeholder-blue-200/60 focus:outline-none uppercase font-mono tracking-widest text-center text-sm"
+                />
+                <button
+                  onclick="navSiswa('siswa-s2-asal')"
+                  class="bg-yellow-400 hover:bg-yellow-300 text-yellow-950 font-black px-4 rounded-xl shadow-[0_4px_0_rgb(202,138,4)] active:translate-y-[4px] active:shadow-none transition-all text-xs tracking-wider"
+                >
+                  GAS
+                </button>
               </div>
             </div>
 
-            <!-- Section: Statistik Mapel -->
-            <div class="px-5">
-              <div class="flex justify-between items-end mb-4">
+            <!-- Mini Stats Grid -->
+            <div>
+              <div class="flex justify-between items-end mb-3 px-1">
                 <h3 class="font-black text-slate-800 text-sm">
                   Statistik Performa
                 </h3>
                 <span
-                  class="text-[10px] text-blue-600 uppercase tracking-widest font-bold"
-                  >Total: 4 Mapel</span
+                  class="text-[9px] text-slate-400 font-bold uppercase tracking-widest"
+                  >Semua Mapel</span
                 >
               </div>
-
               <div class="grid grid-cols-2 gap-3">
-                <!-- Thumb 1 -->
                 <div
-                  class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex flex-col gap-3 relative overflow-hidden group"
+                  class="glass-premium p-4 rounded-[1.5rem] flex flex-col hover:border-emerald-300 transition-colors"
                 >
                   <div
-                    class="absolute top-0 left-0 w-full h-1 bg-emerald-500"
-                  ></div>
-                  <div
-                    class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-xl"
+                    class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-lg mb-2 shadow-sm border border-emerald-100"
                   >
                     🧬
                   </div>
-                  <div>
-                    <h4 class="font-black text-slate-800 text-xs mb-0.5">
-                      Biologi
-                    </h4>
-                    <p class="text-[10px] text-slate-400 font-bold uppercase">
-                      4 Turnamen
-                    </p>
-                  </div>
-                  <div class="mt-auto pt-2 border-t border-slate-50">
+                  <h4 class="font-black text-slate-800 text-sm leading-tight">
+                    Biologi
+                  </h4>
+                  <p
+                    class="text-[9px] text-slate-400 font-bold uppercase mt-0.5 mb-3"
+                  >
+                    4 Turnamen
+                  </p>
+                  <div class="mt-auto pt-3 border-t border-slate-200/50">
                     <div
                       class="flex justify-between text-[10px] font-bold mb-1.5"
                     >
-                      <span class="text-slate-500 uppercase">Win Rate</span>
-                      <span class="text-emerald-600">80%</span>
+                      <span class="text-slate-500">Win Rate</span
+                      ><span class="text-emerald-600">80%</span>
                     </div>
                     <div class="w-full bg-slate-100 rounded-full h-1.5">
                       <div
@@ -492,32 +523,28 @@
                     </div>
                   </div>
                 </div>
-                <!-- Thumb 2 -->
                 <div
-                  class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex flex-col gap-3 relative overflow-hidden"
+                  class="glass-premium p-4 rounded-[1.5rem] flex flex-col hover:border-orange-300 transition-colors"
                 >
                   <div
-                    class="absolute top-0 left-0 w-full h-1 bg-orange-500"
-                  ></div>
-                  <div
-                    class="w-10 h-10 bg-orange-100 text-orange-600 rounded-xl flex items-center justify-center text-xl"
+                    class="w-10 h-10 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center text-lg mb-2 shadow-sm border border-orange-100"
                   >
                     📐
                   </div>
-                  <div>
-                    <h4 class="font-black text-slate-800 text-xs mb-0.5">
-                      Matematika
-                    </h4>
-                    <p class="text-[10px] text-slate-400 font-bold uppercase">
-                      2 Turnamen
-                    </p>
-                  </div>
-                  <div class="mt-auto pt-2 border-t border-slate-50">
+                  <h4 class="font-black text-slate-800 text-sm leading-tight">
+                    Mtk
+                  </h4>
+                  <p
+                    class="text-[9px] text-slate-400 font-bold uppercase mt-0.5 mb-3"
+                  >
+                    2 Turnamen
+                  </p>
+                  <div class="mt-auto pt-3 border-t border-slate-200/50">
                     <div
                       class="flex justify-between text-[10px] font-bold mb-1.5"
                     >
-                      <span class="text-slate-500 uppercase">Win Rate</span>
-                      <span class="text-orange-600">60%</span>
+                      <span class="text-slate-500">Win Rate</span
+                      ><span class="text-orange-600">60%</span>
                     </div>
                     <div class="w-full bg-slate-100 rounded-full h-1.5">
                       <div
@@ -526,243 +553,200 @@
                     </div>
                   </div>
                 </div>
-                <!-- Thumb 3 -->
-                <div
-                  class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex flex-col gap-3 relative overflow-hidden"
-                >
-                  <div
-                    class="absolute top-0 left-0 w-full h-1 bg-blue-500"
-                  ></div>
-                  <div
-                    class="w-10 h-10 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-xl"
-                  >
-                    💻
-                  </div>
-                  <div>
-                    <h4 class="font-black text-slate-800 text-xs mb-0.5">
-                      Informatika
-                    </h4>
-                    <p class="text-[10px] text-slate-400 font-bold uppercase">
-                      1 Turnamen
-                    </p>
-                  </div>
-                  <div class="mt-auto pt-2 border-t border-slate-50">
-                    <div
-                      class="flex justify-between text-[10px] font-bold mb-1.5"
-                    >
-                      <span class="text-slate-500 uppercase">Win Rate</span>
-                      <span class="text-blue-600">100%</span>
-                    </div>
-                    <div class="w-full bg-slate-100 rounded-full h-1.5">
-                      <div
-                        class="bg-blue-500 h-1.5 rounded-full w-[100%]"
-                      ></div>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
 
-          <!-- Bottom Navigation Bar -->
+          <!-- Modern Bottom Dock -->
           <div
-            class="absolute bottom-0 w-full bg-white/90 backdrop-blur-md border-t border-slate-200 rounded-b-[2.5rem] px-8 py-5 flex justify-between items-center z-30 pb-8 shadow-[0_-10px_20px_rgba(0,0,0,0.03)]"
+            class="absolute bottom-6 left-1/2 -translate-x-1/2 w-[90%] glass-premium rounded-3xl p-1.5 flex justify-between items-center z-30 shadow-lg"
           >
             <button
-              onclick="navSiswa('siswa-s0-home')"
-              class="flex flex-col items-center gap-1.5 group"
+              class="flex-1 py-3 flex flex-col items-center gap-1 bg-white rounded-2xl shadow-sm border border-slate-100"
             >
-              <span
-                class="text-2xl drop-shadow-sm transition-transform group-active:scale-90"
-                >🏠</span
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 text-blue-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                />
+              </svg>
               <span
-                class="text-[10px] font-black text-blue-600 uppercase tracking-wider"
-                >Beranda</span
+                class="text-[9px] font-black text-blue-600 uppercase tracking-widest"
+                >Home</span
               >
             </button>
             <button
               onclick="navSiswa('siswa-s0-shop')"
-              class="flex flex-col items-center gap-1.5 group opacity-50 hover:opacity-100 transition-opacity"
+              class="flex-1 py-3 flex flex-col items-center gap-1 rounded-2xl hover:bg-white/40 transition-colors opacity-60"
             >
-              <span
-                class="text-2xl transition-transform group-active:scale-90 grayscale group-hover:grayscale-0"
-                >🛒</span
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 text-slate-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                />
+              </svg>
               <span
-                class="text-[10px] font-bold text-slate-500 uppercase tracking-wider"
+                class="text-[9px] font-bold text-slate-600 uppercase tracking-widest"
                 >Toko</span
               >
             </button>
             <button
               onclick="navSiswa('siswa-s0-history')"
-              class="flex flex-col items-center gap-1.5 group opacity-50 hover:opacity-100 transition-opacity"
+              class="flex-1 py-3 flex flex-col items-center gap-1 rounded-2xl hover:bg-white/40 transition-colors opacity-60"
             >
-              <span
-                class="text-2xl transition-transform group-active:scale-90 grayscale group-hover:grayscale-0"
-                >📊</span
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 text-slate-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                />
+              </svg>
               <span
-                class="text-[10px] font-bold text-slate-500 uppercase tracking-wider"
+                class="text-[9px] font-bold text-slate-600 uppercase tracking-widest"
                 >Riwayat</span
               >
             </button>
           </div>
         </div>
 
-        <!-- SISWA SCREEN 3: TOKO KOIN (Gacha) -->
+        <!-- SISWA SCREEN 3: TOKO KOIN -->
         <div
           id="siswa-s0-shop"
-          class="absolute inset-0 flex flex-col hidden bg-slate-50 z-10"
+          class="absolute inset-0 flex flex-col hidden bg-mesh z-10"
         >
           <header
-            class="bg-white px-6 pt-14 pb-4 border-b border-slate-200 flex justify-between items-center shrink-0"
+            class="glass-premium px-6 pt-12 pb-4 border-b border-white/50 flex justify-between items-center shrink-0 z-20"
           >
-            <h2 class="font-black text-lg text-slate-800">Toko Kosmetik</h2>
+            <h2 class="font-black text-lg text-slate-800">Toko Avatar</h2>
             <div
-              class="bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200 flex items-center gap-1"
+              class="bg-white px-3 py-1.5 rounded-xl flex items-center gap-1.5 shadow-sm border border-slate-100"
             >
-              <span class="text-xs">🪙</span
-              ><span class="font-black text-slate-800 text-xs">1,250</span>
+              <span class="text-sm">🪙</span
+              ><span class="font-black text-yellow-600 text-xs">1.2k</span>
             </div>
           </header>
 
-          <div class="flex-1 overflow-y-auto custom-scrollbar p-5 pb-28">
-            <!-- Gacha Box -->
+          <div class="flex-1 overflow-y-auto custom-scrollbar p-5 pb-32">
             <div
-              class="bg-gradient-to-br from-indigo-600 via-purple-600 to-fuchsia-700 rounded-3xl p-6 text-center text-white shadow-lg mb-6 relative overflow-hidden"
+              class="bg-gradient-to-br from-fuchsia-600 to-pink-600 rounded-[2rem] p-6 text-center text-white shadow-[0_15px_30px_rgba(217,70,239,0.25)] mb-6 relative overflow-hidden group border border-fuchsia-400/50"
             >
-              <div class="absolute -right-4 -bottom-4 text-8xl opacity-20">
+              <div
+                class="absolute -right-4 -bottom-4 opacity-20 group-hover:rotate-12 transition-transform duration-500 text-8xl"
+              >
                 🔮
               </div>
-              <div
-                class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMTAiIGN5PSIxMCIgcj0iMSIgZmlsbD0iI2ZmZiIgZmlsbC1vcGFjaXR5PSIwLjMiLz48L3N2Zz4=')]"
-              ></div>
-
               <h3 class="font-black text-2xl mb-1 relative z-10 drop-shadow-md">
-                Gacha Box Misteri
+                Gacha Misteri
               </h3>
               <p
-                class="text-[10px] text-purple-200 mb-6 relative z-10 font-bold uppercase tracking-widest"
+                class="text-[9px] text-fuchsia-100 mb-6 relative z-10 font-bold uppercase tracking-widest bg-black/20 inline-block px-3 py-1.5 rounded-full"
               >
-                Dapatkan Border Avatar Langka!
+                Dapatkan Kosmetik Langka!
               </p>
-
               <div
-                class="text-6xl mb-6 animate-bounce drop-shadow-xl relative z-10"
+                class="text-6xl mb-6 animate-float drop-shadow-2xl relative z-10"
               >
                 🎁
               </div>
-
               <button
-                class="w-full bg-yellow-400 hover:bg-yellow-300 text-yellow-950 font-black py-4 rounded-xl shadow-[0_4px_0_rgb(161,98,7)] active:translate-y-[4px] active:shadow-none transition-all relative z-10 flex justify-center items-center gap-2"
+                class="w-full bg-yellow-400 hover:bg-yellow-300 text-yellow-950 font-black py-4 rounded-xl shadow-[0_4px_0_rgb(202,138,4)] active:translate-y-[4px] active:shadow-none transition-all relative z-10 text-sm tracking-widest"
               >
-                <span>BUKA BOX (500)</span> <span class="text-sm">🪙</span>
+                BUKA (500 🪙)
               </button>
-            </div>
-
-            <!-- Daily Items -->
-            <h3
-              class="font-black text-slate-800 mb-3 text-sm flex items-center gap-2"
-            >
-              Item Spesial Hari Ini <span class="text-xs">🔥</span>
-            </h3>
-            <div class="space-y-3">
-              <div
-                class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center"
-              >
-                <div class="flex items-center gap-4">
-                  <div
-                    class="w-12 h-12 rounded-full border-[3px] border-yellow-400 bg-slate-100 flex items-center justify-center text-xl shadow-inner relative"
-                  >
-                    <span
-                      class="absolute -bottom-1 bg-yellow-400 text-yellow-900 text-[8px] font-black px-1.5 rounded-sm"
-                      >EPIC</span
-                    >
-                  </div>
-                  <div>
-                    <h4 class="font-black text-slate-800 text-sm">
-                      Border Emas
-                    </h4>
-                    <p class="text-[10px] text-slate-500 font-bold">
-                      Kosmetik Profil
-                    </p>
-                  </div>
-                </div>
-                <button
-                  class="bg-blue-50 hover:bg-blue-100 text-blue-600 px-3 py-2 rounded-xl font-black text-xs border border-blue-100 flex items-center gap-1 transition-colors"
-                >
-                  1000 <span>🪙</span>
-                </button>
-              </div>
-
-              <div
-                class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center"
-              >
-                <div class="flex items-center gap-4">
-                  <div
-                    class="bg-gradient-to-r from-red-500 to-orange-500 text-white px-2 py-1.5 rounded text-[10px] font-black shadow-sm transform -rotate-2"
-                  >
-                    SANG PENAKLUK
-                  </div>
-                  <div>
-                    <h4 class="font-black text-slate-800 text-sm">
-                      Gelar Nama
-                    </h4>
-                    <p class="text-[10px] text-slate-500 font-bold">
-                      Teks Eksklusif
-                    </p>
-                  </div>
-                </div>
-                <button
-                  class="bg-blue-50 hover:bg-blue-100 text-blue-600 px-3 py-2 rounded-xl font-black text-xs border border-blue-100 flex items-center gap-1 transition-colors"
-                >
-                  800 <span>🪙</span>
-                </button>
-              </div>
             </div>
           </div>
 
-          <!-- Bottom Navigation Bar (Shop) -->
           <div
-            class="absolute bottom-0 w-full bg-white/90 backdrop-blur-md border-t border-slate-200 rounded-b-[2.5rem] px-8 py-5 flex justify-between items-center z-30 pb-8 shadow-[0_-10px_20px_rgba(0,0,0,0.03)]"
+            class="absolute bottom-6 left-1/2 -translate-x-1/2 w-[90%] glass-premium rounded-3xl p-1.5 flex justify-between items-center z-30 shadow-lg"
           >
             <button
               onclick="navSiswa('siswa-s0-home')"
-              class="flex flex-col items-center gap-1.5 group opacity-50 hover:opacity-100 transition-opacity"
+              class="flex-1 py-3 flex flex-col items-center gap-1 rounded-2xl hover:bg-white/40 transition-colors opacity-60"
             >
-              <span
-                class="text-2xl transition-transform group-active:scale-90 grayscale group-hover:grayscale-0"
-                >🏠</span
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 text-slate-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                />
+              </svg>
               <span
-                class="text-[10px] font-bold text-slate-500 uppercase tracking-wider"
-                >Beranda</span
+                class="text-[9px] font-bold text-slate-600 uppercase tracking-widest"
+                >Home</span
               >
             </button>
             <button
-              onclick="navSiswa('siswa-s0-shop')"
-              class="flex flex-col items-center gap-1.5 group"
+              class="flex-1 py-3 flex flex-col items-center gap-1 bg-white rounded-2xl shadow-sm border border-slate-100"
             >
-              <span
-                class="text-2xl drop-shadow-sm transition-transform group-active:scale-90"
-                >🛒</span
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 text-fuchsia-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                />
+              </svg>
               <span
-                class="text-[10px] font-black text-blue-600 uppercase tracking-wider"
+                class="text-[9px] font-black text-fuchsia-600 uppercase tracking-widest"
                 >Toko</span
               >
             </button>
             <button
               onclick="navSiswa('siswa-s0-history')"
-              class="flex flex-col items-center gap-1.5 group opacity-50 hover:opacity-100 transition-opacity"
+              class="flex-1 py-3 flex flex-col items-center gap-1 rounded-2xl hover:bg-white/40 transition-colors opacity-60"
             >
-              <span
-                class="text-2xl transition-transform group-active:scale-90 grayscale group-hover:grayscale-0"
-                >📊</span
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 text-slate-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                />
+              </svg>
               <span
-                class="text-[10px] font-bold text-slate-500 uppercase tracking-wider"
+                class="text-[9px] font-bold text-slate-600 uppercase tracking-widest"
                 >Riwayat</span
               >
             </button>
@@ -772,369 +756,329 @@
         <!-- SISWA SCREEN 4: RIWAYAT DETAIL -->
         <div
           id="siswa-s0-history"
-          class="absolute inset-0 flex flex-col hidden bg-slate-50 z-10"
+          class="absolute inset-0 flex flex-col hidden bg-mesh z-10"
         >
           <header
-            class="bg-white px-6 pt-14 pb-4 border-b border-slate-200 shrink-0"
+            class="glass-premium px-6 pt-12 pb-4 border-b border-white/50 shrink-0 z-20"
           >
             <h2 class="font-black text-lg text-slate-800">
-              Riwayat Pertarungan
+              Riwayat Pertandingan
             </h2>
           </header>
 
           <div
-            class="flex-1 overflow-y-auto custom-scrollbar p-5 pb-28 space-y-4"
+            class="flex-1 overflow-y-auto custom-scrollbar p-5 pb-32 space-y-4"
           >
-            <!-- Hist Item 1 -->
             <div
-              class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 relative overflow-hidden"
+              class="glass-premium p-4 rounded-[1.5rem] relative overflow-hidden group border border-white"
             >
               <div
-                class="absolute left-0 top-0 w-1.5 h-full bg-emerald-500"
+                class="absolute left-0 top-0 w-2 h-full bg-emerald-500"
               ></div>
-              <div class="flex justify-between items-start mb-2 pl-2">
+              <div class="flex justify-between items-start mb-4 pl-3">
                 <div>
                   <p
-                    class="text-[10px] font-black text-emerald-600 uppercase tracking-widest mb-0.5"
+                    class="text-[9px] font-black text-emerald-600 uppercase tracking-widest mb-1 flex items-center gap-1"
                   >
-                    Biologi
+                    <span>🧬</span> Biologi
                   </p>
                   <h3 class="font-black text-slate-800 text-sm">
-                    Review Sel (Meja 1)
+                    Review Sel (Meja Ahli)
                   </h3>
                 </div>
                 <span
-                  class="bg-slate-100 text-slate-500 text-[10px] font-bold px-2 py-1 rounded"
+                  class="bg-slate-100 text-slate-500 text-[9px] font-bold px-2 py-1 rounded-md"
                   >Hari ini</span
                 >
               </div>
               <div
-                class="bg-slate-50 rounded-xl p-3 border border-slate-100 flex justify-between items-center mt-3 ml-2"
+                class="bg-white rounded-xl p-3 flex justify-between items-center ml-3 shadow-sm border border-slate-100"
               >
                 <div>
                   <p
-                    class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1"
+                    class="text-[9px] text-slate-400 font-bold uppercase tracking-widest mb-0.5"
                   >
-                    Hasil Meja
+                    Posisi Akhir
                   </p>
                   <p
-                    class="font-black text-slate-800 text-sm flex items-center gap-1.5"
+                    class="font-black text-slate-800 text-xs flex items-center gap-1.5"
                   >
                     🥇 Juara 1
                   </p>
                 </div>
-                <div class="text-right border-l border-slate-200 pl-4">
+                <div class="text-right border-l border-slate-100 pl-4">
                   <p
-                    class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1"
+                    class="text-[9px] text-slate-400 font-bold uppercase tracking-widest mb-0.5"
                   >
                     Pendapatan
                   </p>
                   <p
-                    class="font-black text-yellow-500 text-sm flex items-center justify-end gap-1"
+                    class="font-black text-yellow-600 text-xs flex items-center justify-end gap-1"
                   >
                     +850 🪙
                   </p>
                 </div>
               </div>
             </div>
-
-            <!-- Hist Item 2 -->
-            <div
-              class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 relative overflow-hidden"
-            >
-              <div
-                class="absolute left-0 top-0 w-1.5 h-full bg-orange-500"
-              ></div>
-              <div class="flex justify-between items-start mb-2 pl-2">
-                <div>
-                  <p
-                    class="text-[10px] font-black text-orange-600 uppercase tracking-widest mb-0.5"
-                  >
-                    Matematika
-                  </p>
-                  <h3 class="font-black text-slate-800 text-sm">
-                    Aljabar (Meja 3)
-                  </h3>
-                </div>
-                <span
-                  class="bg-slate-100 text-slate-500 text-[10px] font-bold px-2 py-1 rounded"
-                  >Kemarin</span
-                >
-              </div>
-              <div
-                class="bg-slate-50 rounded-xl p-3 border border-slate-100 flex justify-between items-center mt-3 ml-2"
-              >
-                <div>
-                  <p
-                    class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1"
-                  >
-                    Hasil Meja
-                  </p>
-                  <p
-                    class="font-black text-slate-800 text-sm flex items-center gap-1.5"
-                  >
-                    🥉 Juara 3
-                  </p>
-                </div>
-                <div class="text-right border-l border-slate-200 pl-4">
-                  <p
-                    class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1"
-                  >
-                    Pendapatan
-                  </p>
-                  <p
-                    class="font-black text-yellow-500 text-sm flex items-center justify-end gap-1"
-                  >
-                    +200 🪙
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
 
-          <!-- Bottom Navigation Bar (History) -->
           <div
-            class="absolute bottom-0 w-full bg-white/90 backdrop-blur-md border-t border-slate-200 rounded-b-[2.5rem] px-8 py-5 flex justify-between items-center z-30 pb-8 shadow-[0_-10px_20px_rgba(0,0,0,0.03)]"
+            class="absolute bottom-6 left-1/2 -translate-x-1/2 w-[90%] glass-premium rounded-3xl p-1.5 flex justify-between items-center z-30 shadow-lg"
           >
             <button
               onclick="navSiswa('siswa-s0-home')"
-              class="flex flex-col items-center gap-1.5 group opacity-50 hover:opacity-100 transition-opacity"
+              class="flex-1 py-3 flex flex-col items-center gap-1 rounded-2xl hover:bg-white/40 transition-colors opacity-60"
             >
-              <span
-                class="text-2xl transition-transform group-active:scale-90 grayscale group-hover:grayscale-0"
-                >🏠</span
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 text-slate-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                />
+              </svg>
               <span
-                class="text-[10px] font-bold text-slate-500 uppercase tracking-wider"
-                >Beranda</span
+                class="text-[9px] font-bold text-slate-600 uppercase tracking-widest"
+                >Home</span
               >
             </button>
             <button
               onclick="navSiswa('siswa-s0-shop')"
-              class="flex flex-col items-center gap-1.5 group opacity-50 hover:opacity-100 transition-opacity"
+              class="flex-1 py-3 flex flex-col items-center gap-1 rounded-2xl hover:bg-white/40 transition-colors opacity-60"
             >
-              <span
-                class="text-2xl transition-transform group-active:scale-90 grayscale group-hover:grayscale-0"
-                >🛒</span
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 text-slate-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                />
+              </svg>
               <span
-                class="text-[10px] font-bold text-slate-500 uppercase tracking-wider"
+                class="text-[9px] font-bold text-slate-600 uppercase tracking-widest"
                 >Toko</span
               >
             </button>
             <button
-              onclick="navSiswa('siswa-s0-history')"
-              class="flex flex-col items-center gap-1.5 group"
+              class="flex-1 py-3 flex flex-col items-center gap-1 bg-white rounded-2xl shadow-sm border border-slate-100"
             >
-              <span
-                class="text-2xl drop-shadow-sm transition-transform group-active:scale-90"
-                >📊</span
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 text-blue-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                />
+              </svg>
               <span
-                class="text-[10px] font-black text-blue-600 uppercase tracking-wider"
+                class="text-[9px] font-black text-blue-600 uppercase tracking-widest"
                 >Riwayat</span
               >
             </button>
           </div>
         </div>
 
-        <!-- SISWA SCREEN 5: KELOMPOK ASAL (Belajar) -->
+        <!-- SISWA SCREEN 5: KELOMPOK ASAL (Belajar/Materi) -->
         <div
           id="siswa-s2-asal"
           class="absolute inset-0 flex flex-col hidden bg-slate-50 z-10"
         >
           <div
-            class="bg-blue-600 pt-14 pb-8 px-6 text-white text-center rounded-b-3xl shadow-md shrink-0 relative overflow-hidden"
+            class="bg-gradient-to-br from-indigo-600 to-blue-800 pt-16 pb-10 px-6 text-white text-center rounded-b-[3rem] shadow-xl shrink-0 relative overflow-hidden z-20"
           >
             <div
-              class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMTAiIGN5PSIxMCIgcj0iMiIgZmlsbD0iI2ZmZiIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3N2Zz4=')]"
+              class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMTAiIGN5PSIxMCIgcj0iMSIgZmlsbD0iI2ZmZiIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3N2Zz4=')] opacity-20"
             ></div>
+
             <p
-              class="text-xs font-bold text-blue-200 uppercase tracking-widest mb-2 relative z-10"
+              class="text-[10px] font-bold text-blue-200 uppercase tracking-widest mb-4 relative z-10"
             >
-              Kamu Berada Di
+              Tim Kamu Saat Ini
             </p>
-            <h2 class="text-3xl font-black relative z-10 drop-shadow-md">
-              Kelompok 1<br /><span class="text-xl text-yellow-300"
+
+            <!-- Avatar Group -->
+            <div class="flex justify-center -space-x-3 mb-4 relative z-10">
+              <img
+                src="https://placehold.co/100x100/3b82f6/white?text=B"
+                class="w-14 h-14 rounded-full border-[3px] border-indigo-600 shadow-lg relative z-30"
+              />
+              <img
+                src="https://placehold.co/100x100/f43f5e/white?text=S"
+                class="w-14 h-14 rounded-full border-[3px] border-indigo-600 shadow-lg relative z-20"
+              />
+              <img
+                src="https://placehold.co/100x100/10b981/white?text=A"
+                class="w-14 h-14 rounded-full border-[3px] border-indigo-600 shadow-lg relative z-10"
+              />
+              <div
+                class="w-14 h-14 rounded-full border-[3px] border-indigo-600 bg-slate-800 text-white flex items-center justify-center text-xs font-black relative z-0 shadow-lg"
+              >
+                +2
+              </div>
+            </div>
+
+            <h2 class="text-2xl font-black drop-shadow-md relative z-10">
+              Kelompok 1 <br /><span
+                class="text-sm text-yellow-300 block mt-1 font-bold"
                 >(Kancil)</span
               >
             </h2>
           </div>
+
           <div
-            class="flex-1 flex flex-col items-center justify-center p-8 text-center relative"
+            class="flex-1 flex flex-col items-center justify-center p-8 text-center relative bg-mesh z-10"
           >
             <div
-              class="w-32 h-32 bg-white border border-slate-100 rounded-full flex items-center justify-center text-6xl mb-6 relative z-10 shadow-lg"
+              class="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-6 shadow-lg border-4 border-indigo-50 shrink-0 rotate-3 animate-float"
             >
-              <div
-                class="absolute inset-0 rounded-full border-[6px] border-blue-50 border-t-blue-500 animate-spin"
-              ></div>
-              <span class="relative z-10">👥</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-10 w-10 text-indigo-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                />
+              </svg>
             </div>
-            <h3 class="text-xl font-black text-slate-800 mb-3">
-              Waktunya Belajar!
+
+            <h3 class="text-xl font-black text-slate-800 mb-2">
+              Fase Diskusi Materi
             </h3>
             <p
-              class="text-sm text-slate-500 font-medium mb-10 leading-relaxed px-4"
+              class="text-xs text-slate-500 font-medium mb-10 leading-relaxed px-2"
             >
-              Silakan duduk bersama teman
-              <strong class="text-slate-800">Kelompok 1</strong>. Perhatikan
-              materi dari Guru dan bersiap untuk turnamen.
+              Duduklah bersama teman kelompokmu. Perhatikan presentasi materi
+              dari Guru di depan kelas.
             </p>
 
             <div
-              class="bg-white border border-slate-200 shadow-sm rounded-2xl px-6 py-4 font-bold text-slate-600 text-sm animate-pulse flex flex-col items-center gap-2 w-full"
+              class="w-full bg-white rounded-2xl p-5 relative overflow-hidden text-left flex items-center gap-4 shadow-sm border border-slate-200 shrink-0"
             >
-              <span class="text-2xl">🔒</span>
-              <span class="text-xs uppercase tracking-widest text-slate-400"
-                >Menunggu Aba-aba...</span
-              >
+              <div
+                class="w-10 h-10 rounded-full border-[3px] border-slate-100 border-t-blue-600 animate-spin shrink-0"
+              ></div>
+              <div>
+                <span
+                  class="block text-[9px] uppercase tracking-widest text-slate-400 font-bold mb-1"
+                  >Menunggu Instruksi...</span
+                >
+                <span class="block text-xs font-black text-slate-800"
+                  >Turnamen akan segera diacak</span
+                >
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- SISWA SCREEN 6: MEJA TURNAMEN (Game Engine UI) -->
+        <!-- SISWA SCREEN 6: MEJA TURNAMEN (ACTIVE / PENJAWAB) -->
         <div
-          id="siswa-s3-meja"
-          class="absolute inset-0 flex flex-col hidden bg-slate-900 z-10"
+          id="siswa-s3-meja-aktif"
+          class="absolute inset-0 flex flex-col hidden bg-slate-950 z-10"
         >
-          <!-- Header Status -->
           <div
-            class="bg-slate-800 pt-12 pb-4 px-6 border-b border-slate-700 flex justify-between items-center shrink-0 shadow-lg relative z-20"
+            class="glass-dark pt-12 pb-4 px-6 border-b border-slate-800 flex justify-between items-center shrink-0 shadow-lg relative z-20"
           >
             <div>
               <p
-                class="text-[10px] text-slate-400 font-black uppercase tracking-widest mb-0.5"
+                class="text-[9px] text-blue-400 font-black uppercase tracking-widest mb-0.5"
               >
                 Arena Bertarung
               </p>
-              <h2 class="font-black text-white text-lg">Meja 1 (Ahli)</h2>
+              <h2 class="font-black text-white text-base drop-shadow-md">
+                Meja 1 (Ahli)
+              </h2>
             </div>
             <div
-              class="bg-red-500/20 text-red-500 border border-red-500/50 text-[10px] font-black px-3 py-1.5 rounded-full animate-pulse flex items-center gap-1.5"
+              class="bg-red-500/20 text-red-400 border border-red-500/50 text-[10px] font-black px-3 py-1.5 rounded-lg animate-pulse flex items-center gap-1.5 shadow-sm"
             >
-              <span class="w-1.5 h-1.5 bg-red-500 rounded-full"></span> LIVE
+              <span class="w-1.5 h-1.5 bg-red-400 rounded-full"></span> LIVE
             </div>
           </div>
 
-          <div
-            class="flex-1 relative p-4 flex flex-col justify-center overflow-hidden"
-          >
-            <!-- Background Effects -->
+          <div class="flex-1 relative p-4 flex flex-col overflow-hidden">
             <div
-              class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/40 via-slate-900 to-slate-900 z-0"
+              class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-slate-950 to-black z-0"
             ></div>
 
-            <!-- 4 Corners Avatars (Smart Animate Concept) -->
-            <div class="absolute top-8 left-6 text-center z-10">
-              <div
-                class="w-12 h-12 bg-slate-800 rounded-full border-2 border-slate-600 shadow-lg mx-auto flex items-center justify-center text-xl overflow-hidden mb-1"
-              >
-                <img
-                  src="https://placehold.co/40x40/3b82f6/white?text=A"
-                  alt=""
-                />
-              </div>
-              <span
-                class="text-[10px] font-bold text-slate-300 bg-slate-800 px-2 py-0.5 rounded-full border border-slate-700"
-                >Asep</span
-              >
-            </div>
-            <div class="absolute top-8 right-6 text-center z-10">
-              <div
-                class="w-12 h-12 bg-slate-800 rounded-full border-2 border-slate-600 shadow-lg mx-auto flex items-center justify-center text-xl overflow-hidden mb-1"
-              >
-                <img
-                  src="https://placehold.co/40x40/f59e0b/white?text=S"
-                  alt=""
-                />
-              </div>
-              <span
-                class="text-[10px] font-bold text-slate-300 bg-slate-800 px-2 py-0.5 rounded-full border border-slate-700"
-                >Siti</span
-              >
-            </div>
-            <div class="absolute bottom-10 left-6 text-center z-10">
-              <div
-                class="w-12 h-12 bg-slate-800 rounded-full border-2 border-slate-600 shadow-lg mx-auto flex items-center justify-center text-xl overflow-hidden mb-1"
-              >
-                <img
-                  src="https://placehold.co/40x40/10b981/white?text=U"
-                  alt=""
-                />
-              </div>
-              <span
-                class="text-[10px] font-bold text-slate-300 bg-slate-800 px-2 py-0.5 rounded-full border border-slate-700"
-                >Udin</span
-              >
-            </div>
-            <div class="absolute bottom-10 right-6 text-center z-10">
-              <div
-                class="w-14 h-14 bg-indigo-500 rounded-full border-[3px] border-yellow-400 shadow-[0_0_20px_rgba(250,204,21,0.5)] mx-auto flex items-center justify-center text-xl overflow-hidden mb-1 relative"
-              >
-                <span
-                  class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-slate-900 z-10 animate-ping"
-                ></span>
-                <img
-                  src="https://placehold.co/50x50/6366f1/white?text=B"
-                  alt=""
-                />
-              </div>
-              <span
-                class="text-[12px] font-black text-yellow-400 bg-slate-800 px-3 py-0.5 rounded-full border border-yellow-400/50"
-                >Kamu</span
-              >
-            </div>
-
-            <!-- Center Area (Roulette / Cards) -->
+            <!-- Dynamic Opponent Row (Scalable for 3, 4, 5+ players) -->
             <div
-              class="relative w-full h-72 flex items-center justify-center z-20"
+              class="relative z-10 flex justify-center items-center gap-4 mt-2 mb-6"
             >
-              <!-- Roulette Spin Ring -->
-              <div
-                class="absolute w-56 h-56 rounded-full border-4 border-dashed border-slate-700/50 animate-roulette-spin pointer-events-none"
-              ></div>
-              <div
-                class="absolute w-40 h-40 rounded-full border-2 border-blue-500/30 animate-[spin_5s_linear_infinite_reverse] pointer-events-none"
-              ></div>
-
-              <!-- Cards Stack Background -->
-              <div
-                class="absolute w-28 h-40 bg-slate-800 border-2 border-slate-700 rounded-2xl shadow-2xl rotate-[-15deg] flex items-center justify-center"
-              >
-                <div
-                  class="w-20 h-32 border border-slate-700/50 rounded-xl flex items-center justify-center opacity-20"
+              <div class="flex flex-col items-center">
+                <img
+                  src="https://placehold.co/100x100/10b981/white?text=A"
+                  class="w-10 h-10 rounded-full border border-slate-600 opacity-60 grayscale mb-1"
+                />
+                <span
+                  class="text-[9px] font-bold text-slate-500 bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700"
+                  >Asep</span
                 >
-                  <span class="text-4xl">❓</span>
-                </div>
               </div>
-              <div
-                class="absolute w-28 h-40 bg-slate-750 border-2 border-slate-600 rounded-2xl shadow-2xl rotate-[5deg] flex items-center justify-center"
-              >
-                <div
-                  class="w-20 h-32 border border-slate-600/50 rounded-xl flex items-center justify-center opacity-20"
+              <div class="flex flex-col items-center">
+                <img
+                  src="https://placehold.co/100x100/f43f5e/white?text=S"
+                  class="w-10 h-10 rounded-full border border-slate-600 opacity-60 grayscale mb-1"
+                />
+                <span
+                  class="text-[9px] font-bold text-slate-500 bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700"
+                  >Siti</span
                 >
-                  <span class="text-4xl">❓</span>
-                </div>
               </div>
+              <!-- Extra players icon if needed -->
+              <div class="flex flex-col items-center">
+                <div
+                  class="w-10 h-10 rounded-full border border-slate-600 opacity-60 grayscale bg-slate-800 flex items-center justify-center text-xs font-bold text-white mb-1"
+                >
+                  +1
+                </div>
+                <span
+                  class="text-[9px] font-bold text-slate-500 bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700"
+                  >Lawan</span
+                >
+              </div>
+            </div>
 
-              <!-- The Pulled Card (Simulating Smart Animate popup) -->
+            <!-- Pulled Card (Question) -->
+            <div
+              class="relative z-20 flex-1 flex flex-col justify-center mb-6 mx-2"
+            >
               <div
-                class="absolute w-72 bg-white rounded-3xl shadow-[0_30px_60px_rgba(0,0,0,0.8)] border-[6px] border-blue-500 p-6 transform animate-pull-card"
+                class="bg-white rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-[6px] border-blue-500 p-5 transform animate-pull-card"
               >
                 <div
                   class="flex justify-between items-center mb-4 pb-3 border-b border-slate-100"
                 >
                   <span
-                    class="text-xs font-black text-blue-600 bg-blue-50 px-2 py-1 rounded border border-blue-100"
+                    class="text-[10px] font-black text-blue-600 bg-blue-50 px-2 py-1 rounded border border-blue-100"
                     >SOAL #4</span
                   >
                   <span
-                    class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1"
-                    ><span
-                      class="w-2 h-2 rounded-full bg-red-500 animate-pulse"
-                    ></span>
-                    Giliranmu</span
+                    class="text-[10px] font-black text-rose-500 uppercase tracking-widest flex items-center gap-1 bg-rose-50 px-2 py-1 rounded"
+                    >⏱️ 00:45</span
                   >
                 </div>
                 <p
@@ -1143,81 +1087,234 @@
                   Organel sel yang berfungsi sebagai tempat berlangsungnya
                   respirasi seluler adalah...
                 </p>
-                <div class="space-y-2.5">
+
+                <div class="space-y-2">
                   <button
-                    class="w-full text-left bg-slate-50 border-2 border-slate-100 hover:border-blue-500 hover:bg-blue-50 p-3.5 rounded-xl text-xs font-bold text-slate-700 transition-colors"
+                    class="w-full text-left bg-slate-50 border border-slate-200 hover:border-blue-500 hover:bg-blue-50 p-3 rounded-xl text-xs font-bold text-slate-700 transition-colors"
                   >
                     A. Nukleus
                   </button>
                   <button
-                    class="w-full text-left bg-blue-600 border-2 border-blue-600 p-3.5 rounded-xl text-xs font-black text-white shadow-[0_4px_15px_rgba(37,99,235,0.4)] transform scale-[1.02]"
+                    class="w-full text-left bg-blue-600 border border-blue-600 p-3 rounded-xl text-xs font-black text-white shadow-md transform scale-[1.02]"
                   >
                     B. Mitokondria
                   </button>
                   <button
-                    class="w-full text-left bg-slate-50 border-2 border-slate-100 hover:border-blue-500 hover:bg-blue-50 p-3.5 rounded-xl text-xs font-bold text-slate-700 transition-colors"
+                    class="w-full text-left bg-slate-50 border border-slate-200 hover:border-blue-500 hover:bg-blue-50 p-3 rounded-xl text-xs font-bold text-slate-700 transition-colors"
                   >
                     C. Ribosom
                   </button>
                 </div>
               </div>
             </div>
+
+            <!-- Active Player (You) -->
+            <div class="relative z-10 flex flex-col items-center mt-auto pb-4">
+              <div
+                class="w-14 h-14 rounded-full border-2 border-yellow-400 animate-pulse-glow mb-2 overflow-hidden shadow-[0_0_15px_rgba(250,204,21,0.5)]"
+              >
+                <img
+                  src="https://placehold.co/100x100/4f46e5/white?text=B"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <span
+                class="text-[10px] font-black text-yellow-400 bg-slate-900 px-3 py-1 rounded-full border border-yellow-400/50 flex items-center gap-1.5"
+                ><span
+                  class="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse"
+                ></span>
+                Giliranmu!</span
+              >
+            </div>
           </div>
         </div>
 
-        <!-- SISWA SCREEN 7: HASIL AKHIR -->
+        <!-- SISWA SCREEN 7: MEJA TURNAMEN (PASSIVE / PENYANGGAH) -->
+        <div
+          id="siswa-s3-meja-pasif"
+          class="absolute inset-0 flex flex-col hidden bg-slate-950 z-10"
+        >
+          <div
+            class="glass-dark pt-12 pb-4 px-6 border-b border-slate-800 flex justify-between items-center shrink-0 shadow-lg relative z-20"
+          >
+            <div>
+              <p
+                class="text-[9px] text-rose-400 font-black uppercase tracking-widest mb-0.5"
+              >
+                Mode Penonton
+              </p>
+              <h2 class="font-black text-white text-base drop-shadow-md">
+                Meja 1 (Ahli)
+              </h2>
+            </div>
+            <div
+              class="bg-slate-800 text-slate-400 border border-slate-700 text-[10px] font-black px-3 py-1.5 rounded-lg flex items-center gap-1.5 shadow-sm"
+            >
+              ⏱️ Menunggu
+            </div>
+          </div>
+
+          <div class="flex-1 relative p-5 flex flex-col z-10 overflow-hidden">
+            <div
+              class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-rose-950/20 via-slate-950 to-black z-0"
+            ></div>
+
+            <!-- Opponent Row (includes You as passive) -->
+            <div
+              class="relative z-10 flex justify-center items-center gap-4 mt-2 mb-6"
+            >
+              <div class="flex flex-col items-center">
+                <img
+                  src="https://placehold.co/100x100/4f46e5/white?text=B"
+                  class="w-10 h-10 rounded-full border border-blue-500 mb-1 shadow-[0_0_10px_rgba(59,130,246,0.5)]"
+                />
+                <span
+                  class="text-[9px] font-bold text-blue-400 bg-blue-900/50 px-2 py-0.5 rounded border border-blue-800"
+                  >Kamu</span
+                >
+              </div>
+              <div class="flex flex-col items-center">
+                <img
+                  src="https://placehold.co/100x100/f43f5e/white?text=S"
+                  class="w-10 h-10 rounded-full border border-slate-600 opacity-60 grayscale mb-1"
+                />
+                <span
+                  class="text-[9px] font-bold text-slate-500 bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700"
+                  >Siti</span
+                >
+              </div>
+              <div class="flex flex-col items-center">
+                <div
+                  class="w-10 h-10 rounded-full border border-slate-600 opacity-60 grayscale bg-slate-800 flex items-center justify-center text-xs font-bold text-white mb-1"
+                >
+                  +1
+                </div>
+                <span
+                  class="text-[9px] font-bold text-slate-500 bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700"
+                  >Lawan</span
+                >
+              </div>
+            </div>
+
+            <!-- Highlighted Active Player -->
+            <div class="relative z-10 text-center mb-4">
+              <div
+                class="inline-flex items-center gap-2 bg-slate-800/80 backdrop-blur border border-slate-700 pl-1.5 pr-4 py-1.5 rounded-full shadow-lg"
+              >
+                <img
+                  src="https://placehold.co/100x100/10b981/white?text=A"
+                  class="w-7 h-7 rounded-full border border-slate-600"
+                />
+                <span class="text-[10px] font-bold text-slate-300"
+                  >Giliran
+                  <span class="text-white font-black">Asep</span> menjawab</span
+                >
+              </div>
+            </div>
+
+            <!-- Mini Question Card (View Only) -->
+            <div
+              class="relative z-10 bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-inner mb-auto opacity-70"
+            >
+              <span
+                class="text-[9px] font-black text-slate-500 bg-slate-800 px-2 py-1 rounded border border-slate-700 mb-2 inline-block"
+                >SOAL #4</span
+              >
+              <p
+                class="text-[11px] font-bold text-slate-400 leading-relaxed blur-[2px] hover:blur-none transition-all cursor-help"
+              >
+                Organel sel yang berfungsi sebagai tempat berlangsungnya
+                respirasi seluler adalah...
+              </p>
+            </div>
+
+            <!-- GIANT BUZZER BUTTON -->
+            <div class="relative z-10 mt-auto pb-8">
+              <div class="text-center mb-4">
+                <span
+                  class="text-[9px] text-rose-300 font-bold uppercase tracking-widest bg-rose-950/80 px-3 py-1.5 rounded-full border border-rose-900"
+                  >Bersiap Jika Musuh Salah!</span
+                >
+              </div>
+
+              <div
+                class="relative w-full aspect-square max-h-[220px] mx-auto group"
+              >
+                <div
+                  class="absolute inset-0 bg-rose-600 rounded-full blur-xl opacity-20 group-active:opacity-40 transition-opacity"
+                ></div>
+                <div
+                  class="absolute inset-4 bg-red-600 rounded-full blur-lg opacity-30 animate-pulse"
+                ></div>
+
+                <button
+                  class="absolute inset-6 bg-gradient-to-b from-rose-500 to-red-700 rounded-full shadow-[inset_0_4px_10px_rgba(255,255,255,0.3),0_15px_30px_rgba(225,29,72,0.4)] border-[4px] border-slate-900 flex flex-col items-center justify-center gap-2 transform active:scale-95 transition-transform duration-75"
+                >
+                  <span class="text-4xl drop-shadow-md">🚨</span>
+                  <span
+                    class="font-black text-white text-xl tracking-widest drop-shadow-md"
+                    >SANGGAH!</span
+                  >
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SISWA SCREEN 8: HASIL AKHIR -->
         <div
           id="siswa-s4-hasil"
-          class="absolute inset-0 flex flex-col hidden bg-blue-600 z-10"
+          class="absolute inset-0 flex flex-col hidden bg-indigo-600 z-10"
         >
           <div
             class="flex-1 flex flex-col items-center justify-center p-8 text-center text-white relative"
           >
-            <!-- Confetti background -->
             <div
               class="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMTAiIGN5PSIxMCIgcj0iMiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==')]"
             ></div>
 
-            <h2 class="text-3xl font-black mb-2 relative z-10 drop-shadow-md">
+            <h2
+              class="text-2xl font-black mb-2 relative z-10 drop-shadow-md mt-6"
+            >
               TURNAMEN SELESAI!
             </h2>
             <p
-              class="text-blue-200 font-bold mb-10 relative z-10 bg-blue-800/50 px-4 py-1.5 rounded-full border border-blue-400/30"
+              class="text-indigo-200 font-bold mb-10 relative z-10 glass-premium !bg-indigo-800/50 !border-indigo-400/30 px-3 py-1 rounded text-xs"
             >
               Meja 1 (Ahli)
             </p>
 
             <div
-              class="bg-white rounded-[2rem] p-6 w-full text-slate-800 shadow-2xl relative z-10 border-4 border-white/20"
+              class="bg-white rounded-[2rem] p-5 w-full text-slate-800 shadow-2xl relative z-10 border-4 border-white/20"
             >
               <div
-                class="w-24 h-24 bg-gradient-to-br from-yellow-300 to-yellow-500 text-white rounded-full flex items-center justify-center text-5xl font-black mx-auto -mt-16 border-[6px] border-white shadow-[0_10px_20px_rgba(234,179,8,0.5)] mb-5"
+                class="w-20 h-20 bg-gradient-to-br from-yellow-300 to-yellow-500 text-white rounded-[1.5rem] flex items-center justify-center text-4xl mx-auto -mt-14 border-[4px] border-indigo-600 shadow-lg mb-4 rotate-3"
               >
                 🏆
               </div>
-              <h3 class="font-black text-2xl mb-1">Juara 1 Meja!</h3>
+              <h3 class="font-black text-xl mb-1">Juara 1 Meja!</h3>
               <p
-                class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6"
+                class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-5"
               >
-                Hebat, strategi belajarmu berhasil!
+                Kerja bagus, pahlawan kelompok!
               </p>
 
               <div
-                class="bg-slate-50 rounded-2xl p-4 border border-slate-100 mb-4 flex justify-between items-center"
+                class="bg-slate-50 rounded-xl p-3 border border-slate-100 mb-2 flex justify-between items-center"
               >
-                <p class="text-xs font-bold text-slate-500 uppercase">
+                <p class="text-[10px] font-bold text-slate-500 uppercase">
                   Poin Personal
                 </p>
-                <p class="text-2xl font-black text-blue-600 font-mono">850</p>
+                <p class="text-lg font-black text-indigo-600 font-mono">850</p>
               </div>
               <div
-                class="bg-emerald-50 rounded-2xl p-4 border border-emerald-100 flex justify-between items-center"
+                class="bg-emerald-50 rounded-xl p-3 border border-emerald-100 flex justify-between items-center"
               >
-                <p class="text-xs font-black text-emerald-600 uppercase">
+                <p class="text-[10px] font-black text-emerald-600 uppercase">
                   Poin Tim (Kancil)
                 </p>
                 <p
-                  class="text-xl font-black text-emerald-700 bg-emerald-200/50 px-3 py-1 rounded-lg"
+                  class="text-sm font-black text-emerald-700 bg-emerald-200/50 px-2 py-0.5 rounded-lg"
                 >
                   +60 Pts
                 </p>
@@ -1226,9 +1323,9 @@
 
             <button
               onclick="navSiswa('siswa-s0-home')"
-              class="w-full bg-slate-900 hover:bg-slate-800 text-white font-black py-4 rounded-2xl shadow-xl mt-10 relative z-10 active:scale-95 transition-transform flex justify-center items-center gap-2"
+              class="w-full bg-slate-900 hover:bg-slate-800 text-white font-black py-4 rounded-xl shadow-xl mt-auto relative z-10 active:scale-95 transition-transform flex justify-center items-center gap-2 text-sm"
             >
-              <span>KEMBALI KE BERANDA</span> <span>🏠</span>
+              KEMBALI KE BERANDA 🏠
             </button>
           </div>
         </div>
@@ -1239,58 +1336,63 @@
       <!-- ========================================== -->
       <div
         id="view-guru"
-        class="w-[1024px] h-[700px] bg-white rounded-xl shadow-2xl overflow-hidden hidden flex-col border border-slate-300 shrink-0 relative"
+        class="w-[1024px] h-[700px] bg-slate-50 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden hidden flex-col border border-slate-700 shrink-0 relative ring-1 ring-white/10"
       >
         <!-- GURU SCREEN L: LOGIN -->
         <div
           id="guru-login"
           class="absolute inset-0 flex flex-col bg-slate-50 z-20"
         >
-          <div class="flex-1 flex items-center justify-center p-8">
+          <div
+            class="flex-1 flex items-center justify-center p-8 relative overflow-hidden bg-mesh"
+          >
             <div
-              class="w-full max-w-md bg-white p-10 rounded-3xl shadow-xl border border-slate-100 text-center relative overflow-hidden"
+              class="absolute top-[-20%] right-[-10%] w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"
+            ></div>
+
+            <div
+              class="w-full max-w-md glass-premium p-10 rounded-[2.5rem] text-center relative z-10"
             >
               <div
-                class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 to-indigo-600"
-              ></div>
-              <div
-                class="w-20 h-20 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-4xl font-black mx-auto mb-6 shadow-lg shadow-blue-200"
+                class="w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-700 text-white rounded-2xl flex items-center justify-center text-3xl font-black mx-auto mb-5 shadow-lg shadow-blue-200 border border-white/50"
               >
                 T
               </div>
-              <h2 class="text-3xl font-black text-slate-800 mb-2">
+              <h2
+                class="text-2xl font-black text-slate-800 mb-2 tracking-tight"
+              >
                 Portal Guru
               </h2>
-              <p class="text-slate-500 font-medium mb-8 text-sm">
-                Masuk untuk mengelola kelas TGT
+              <p class="text-slate-500 font-medium mb-8 text-xs">
+                Manajemen Kelas & Ekosistem TGT
               </p>
 
-              <div class="space-y-5 text-left">
+              <div class="space-y-4 text-left">
                 <div>
                   <label
-                    class="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2 ml-1"
+                    class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1"
                     >NIP / ID Guru</label
                   >
                   <input
                     type="text"
-                    value="198507232010012001"
-                    class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-3.5 font-mono font-bold text-slate-800 focus:border-blue-500 outline-none transition-colors"
+                    value="198507232010"
+                    class="w-full bg-white/80 border border-slate-200 rounded-xl p-3 font-mono font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-sm shadow-inner"
                   />
                 </div>
                 <div>
                   <label
-                    class="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2 ml-1"
+                    class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1"
                     >Kata Sandi</label
                   >
                   <input
                     type="password"
                     value="********"
-                    class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-3.5 font-mono font-black text-slate-800 focus:border-blue-500 outline-none transition-colors tracking-widest"
+                    class="w-full bg-white/80 border border-slate-200 rounded-xl p-3 font-mono font-black text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-sm tracking-widest shadow-inner"
                   />
                 </div>
                 <button
                   onclick="navGuru('guru-s0-home')"
-                  class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-xl shadow-lg hover:shadow-xl active:scale-95 transition-all mt-4"
+                  class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-3.5 rounded-xl shadow-md active:scale-95 transition-all mt-4 text-xs tracking-wide"
                 >
                   MASUK DASBOR
                 </button>
@@ -1299,207 +1401,231 @@
           </div>
         </div>
 
-        <!-- GURU SCREEN 0: HOMEPAGE HUB -->
+        <!-- GURU SCREEN 0: HOMEPAGE (Bento Hub) -->
         <div
           id="guru-s0-home"
-          class="absolute inset-0 flex flex-col hidden bg-slate-50 z-10"
+          class="absolute inset-0 flex flex-col hidden bg-mesh z-10"
         >
           <header
-            class="bg-white border-b border-slate-200 px-8 py-4 flex justify-between items-center shrink-0 shadow-sm z-20"
+            class="glass-premium border-b border-white/50 px-8 py-4 flex justify-between items-center shrink-0 z-20"
           >
             <div class="flex items-center gap-3">
               <div
-                class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white text-xl shadow-sm"
+                class="w-8 h-8 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded flex items-center justify-center font-black text-white shadow-sm"
               >
                 T
               </div>
-              <span class="font-black text-slate-800 text-xl tracking-wide"
+              <span class="font-black text-slate-800 text-lg tracking-wide"
                 >Dasbor Guru</span
               >
             </div>
-            <div class="flex items-center gap-6">
-              <div class="flex items-center gap-3 text-left">
+            <div class="flex items-center gap-5">
+              <div
+                class="flex items-center gap-3 text-left bg-white/60 px-3 py-1.5 rounded-full border border-slate-200 shadow-sm"
+              >
                 <div
-                  class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center text-xl border-2 border-slate-200 shadow-inner overflow-hidden"
+                  class="w-8 h-8 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-sm border border-indigo-200 shadow-inner"
                 >
                   👩‍🏫
                 </div>
                 <div>
-                  <p class="text-sm font-black text-slate-800 leading-tight">
-                    Ibu Sri Wahyuni, S.Pd
+                  <p class="text-xs font-black text-slate-800 leading-tight">
+                    Ibu Sri Wahyuni
                   </p>
                   <p
-                    class="text-[10px] uppercase tracking-widest text-slate-500 font-bold mt-0.5"
+                    class="text-[9px] uppercase tracking-widest text-slate-500 font-bold mt-0.5"
                   >
-                    Guru Biologi
+                    Biologi
                   </p>
                 </div>
               </div>
               <button
                 onclick="navGuru('guru-login')"
-                class="px-4 py-2 bg-red-50 hover:bg-red-100 text-red-600 text-xs font-bold rounded-lg transition-colors border border-red-100 flex items-center gap-2"
+                class="px-4 py-2 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl font-bold text-xs transition-colors border border-rose-100 shadow-sm"
               >
-                Keluar 🚪
+                Keluar
               </button>
             </div>
           </header>
 
           <div
-            class="flex-1 p-8 overflow-y-auto custom-scrollbar flex flex-col gap-8"
+            class="flex-1 p-8 overflow-y-auto custom-scrollbar flex flex-col gap-6"
           >
-            <!-- Top Action Cards -->
+            <!-- Top Actions Grid -->
             <div class="grid grid-cols-3 gap-6 shrink-0">
-              <!-- Setup Room -->
               <div
                 onclick="navGuru('guru-s2-setup')"
-                class="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-6 text-white shadow-[0_10px_20px_rgba(37,99,235,0.2)] cursor-pointer hover:-translate-y-1 transition-transform relative overflow-hidden group border border-blue-500"
+                class="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-6 text-white shadow-[0_15px_30px_rgba(59,130,246,0.2)] cursor-pointer hover:-translate-y-1 transition-transform relative overflow-hidden group border border-blue-500/50"
               >
                 <div
-                  class="absolute -right-4 -bottom-4 text-8xl opacity-10 group-hover:scale-110 group-hover:rotate-12 transition-all"
+                  class="absolute -right-4 -bottom-4 opacity-10 group-hover:scale-110 transition-all duration-500"
                 >
-                  ⚔️
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-40 w-40"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
                 </div>
-                <h3
-                  class="font-black text-xl mb-1 relative z-10 drop-shadow-sm"
-                >
-                  Mulai Turnamen Baru
+                <h3 class="font-black text-lg mb-1 relative z-10">
+                  Mulai Turnamen
                 </h3>
                 <p
-                  class="text-blue-100 text-xs font-medium mb-6 relative z-10 w-4/5 leading-relaxed"
+                  class="text-blue-100 text-[10px] font-medium mb-5 relative z-10 w-4/5 leading-relaxed"
                 >
-                  Setup kelas, pilih materi, dan buat room TGT sekarang.
+                  Setup ruang kelas & pilih materi TGT.
                 </p>
                 <div
-                  class="inline-flex items-center gap-2 bg-white/20 px-4 py-2 rounded-lg text-xs font-black uppercase tracking-widest backdrop-blur-sm relative z-10 border border-white/30"
+                  class="inline-flex items-center gap-1.5 bg-white/20 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest backdrop-blur-sm relative z-10 border border-white/30"
                 >
-                  Mulai ➔
+                  Setup Room ➔
                 </div>
               </div>
-              <!-- Kelola Bank Soal -->
               <div
                 onclick="navGuru('guru-s1-banksoal')"
-                class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-emerald-400 cursor-pointer transition-all group relative overflow-hidden"
+                class="glass-premium rounded-3xl p-6 hover:shadow-md hover:border-emerald-300 cursor-pointer transition-all group relative overflow-hidden"
               >
                 <div
                   class="absolute top-0 left-0 w-1.5 h-full bg-emerald-400"
                 ></div>
                 <div
-                  class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform"
+                  class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center mb-3 shadow-sm border border-emerald-100"
                 >
-                  📚
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                    />
+                  </svg>
                 </div>
-                <h3 class="font-black text-slate-800 text-lg mb-1">
-                  Kelola Bank Soal
+                <h3 class="font-black text-slate-800 text-base mb-1">
+                  Bank Soal
                 </h3>
-                <p class="text-slate-500 text-xs font-medium leading-relaxed">
-                  Upload Excel (CRUD) soal untuk persediaan kuis.
+                <p
+                  class="text-slate-500 text-[10px] font-medium leading-relaxed"
+                >
+                  Kelola daftar pertanyaan (CRUD).
                 </p>
               </div>
-              <!-- Riwayat Nilai -->
               <div
                 onclick="navGuru('guru-s7-history')"
-                class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-orange-400 cursor-pointer transition-all group relative overflow-hidden"
+                class="glass-premium rounded-3xl p-6 hover:shadow-md hover:border-orange-300 cursor-pointer transition-all group relative overflow-hidden"
               >
                 <div
                   class="absolute top-0 left-0 w-1.5 h-full bg-orange-400"
                 ></div>
                 <div
-                  class="w-12 h-12 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform"
+                  class="w-10 h-10 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center mb-3 shadow-sm border border-orange-100"
                 >
-                  📊
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
+                  </svg>
                 </div>
-                <h3 class="font-black text-slate-800 text-lg mb-1">
+                <h3 class="font-black text-slate-800 text-base mb-1">
                   Riwayat & Nilai
                 </h3>
-                <p class="text-slate-500 text-xs font-medium leading-relaxed">
-                  Pratinjau detail dan unduh rekap nilai siswa.
+                <p
+                  class="text-slate-500 text-[10px] font-medium leading-relaxed"
+                >
+                  Cetak laporan & performa kelas.
                 </p>
               </div>
             </div>
 
             <!-- Analytics Section -->
-            <div
-              class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex-1 flex flex-col"
-            >
+            <div class="glass-premium rounded-3xl p-6 flex-1 flex flex-col">
               <div class="flex justify-between items-end mb-6">
                 <div>
-                  <h3 class="font-black text-slate-800">
-                    Statistik Turnamen Bulan Ini
+                  <h3 class="font-black text-slate-800 text-base">
+                    Grafik Antusiasme Kelas
                   </h3>
-                  <p class="text-xs text-slate-500 font-medium mt-0.5">
-                    Rata-rata poin keseluruhan kelas per minggu.
+                  <p class="text-[10px] text-slate-500 font-medium mt-1">
+                    Rata-rata interaksi dan poin kelas per minggu.
                   </p>
                 </div>
               </div>
               <div
-                class="flex-1 flex items-end gap-4 relative pt-6 border-b border-slate-100"
+                class="flex-1 flex items-end gap-6 relative pt-6 border-b border-slate-200/50"
               >
-                <!-- Background grid lines -->
-                <div class="absolute w-full h-px bg-slate-100 top-1/4"></div>
-                <div class="absolute w-full h-px bg-slate-100 top-2/4"></div>
-                <div class="absolute w-full h-px bg-slate-100 top-3/4"></div>
-
-                <!-- Bar 1 -->
+                <!-- Bars -->
                 <div
                   class="flex-1 flex flex-col justify-end group relative z-10 h-full"
                 >
-                  <span
-                    class="text-center text-xs font-bold text-slate-600 mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-white px-2 py-1 rounded shadow-sm border border-slate-100 absolute -top-8 left-1/2 -translate-x-1/2"
-                    >850 pt</span
-                  >
                   <div
-                    class="w-full bg-blue-100 group-hover:bg-blue-300 rounded-t-lg transition-colors h-[40%]"
+                    class="w-full bg-slate-200 group-hover:bg-slate-300 rounded-t-xl transition-colors h-[40%]"
                   ></div>
                   <span
-                    class="text-center text-xs font-bold text-slate-400 mt-3"
+                    class="text-center text-[10px] font-bold text-slate-400 mt-2"
                     >Mg 1</span
                   >
                 </div>
-                <!-- Bar 2 -->
                 <div
                   class="flex-1 flex flex-col justify-end group relative z-10 h-full"
                 >
-                  <span
-                    class="text-center text-xs font-bold text-slate-600 mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-white px-2 py-1 rounded shadow-sm border border-slate-100 absolute -top-8 left-1/2 -translate-x-1/2"
-                    >1120 pt</span
-                  >
                   <div
-                    class="w-full bg-blue-200 group-hover:bg-blue-400 rounded-t-lg transition-colors h-[60%]"
+                    class="w-full bg-slate-200 group-hover:bg-slate-300 rounded-t-xl transition-colors h-[60%]"
                   ></div>
                   <span
-                    class="text-center text-xs font-bold text-slate-400 mt-3"
+                    class="text-center text-[10px] font-bold text-slate-400 mt-2"
                     >Mg 2</span
                   >
                 </div>
-                <!-- Bar 3 (Current) -->
                 <div
                   class="flex-1 flex flex-col justify-end group relative z-10 h-full"
                 >
                   <span
-                    class="text-center text-xs font-black text-blue-600 mb-2 bg-white px-2 py-1 rounded shadow-md border border-blue-100 absolute -top-8 left-1/2 -translate-x-1/2 z-20"
+                    class="text-center text-[10px] font-black text-blue-600 mb-1 bg-white px-2 py-0.5 rounded shadow border border-blue-100 absolute -top-6 left-1/2 -translate-x-1/2 z-20"
                     >1540 pt</span
                   >
                   <div
-                    class="w-full bg-blue-600 rounded-t-lg transition-colors h-[85%] shadow-[0_0_15px_rgba(37,99,235,0.3)]"
+                    class="w-full bg-gradient-to-t from-blue-500 to-indigo-500 rounded-t-xl transition-colors h-[85%] shadow-md"
                   ></div>
                   <span
-                    class="text-center text-xs font-black text-slate-800 mt-3"
+                    class="text-center text-[10px] font-black text-slate-800 mt-2"
                     >Mg 3</span
                   >
                 </div>
-                <!-- Bar 4 -->
                 <div
                   class="flex-1 flex flex-col justify-end group relative z-10 h-full"
                 >
-                  <span
-                    class="text-center text-xs font-bold text-slate-600 mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-white px-2 py-1 rounded shadow-sm border border-slate-100 absolute -top-8 left-1/2 -translate-x-1/2"
-                    >1300 pt</span
-                  >
                   <div
-                    class="w-full bg-blue-100 group-hover:bg-blue-300 rounded-t-lg transition-colors h-[70%]"
+                    class="w-full bg-slate-200 group-hover:bg-slate-300 rounded-t-xl transition-colors h-[70%]"
                   ></div>
                   <span
-                    class="text-center text-xs font-bold text-slate-400 mt-3"
+                    class="text-center text-[10px] font-bold text-slate-400 mt-2"
                     >Mg 4</span
                   >
                 </div>
@@ -1511,36 +1637,36 @@
         <!-- GURU SCREEN 1: BANK SOAL -->
         <div
           id="guru-s1-banksoal"
-          class="absolute inset-0 flex flex-col hidden bg-slate-50 z-10"
+          class="absolute inset-0 flex flex-col hidden bg-mesh z-10"
         >
           <header
-            class="bg-white border-b border-slate-200 px-8 py-4 flex items-center shrink-0"
+            class="glass-premium border-b border-white/50 px-8 py-3 flex items-center shrink-0"
           >
             <button
               onclick="navGuru('guru-s0-home')"
-              class="text-sm font-bold text-slate-500 hover:text-slate-800 flex items-center gap-2"
+              class="text-xs font-bold text-slate-500 hover:text-slate-800 flex items-center gap-1.5"
             >
               ← Ke Beranda
             </button>
           </header>
           <div class="flex-1 p-8 flex flex-col overflow-hidden relative">
-            <div class="flex justify-between items-end mb-6 shrink-0">
+            <div class="flex justify-between items-end mb-5 shrink-0">
               <div>
-                <h2 class="text-2xl font-black text-slate-800">
+                <h2 class="text-xl font-black text-slate-800">
                   Manajemen Bank Soal
                 </h2>
-                <p class="text-sm text-slate-500 font-medium mt-1">
-                  Upload excel atau kelola daftar pertanyaan turnamen.
+                <p class="text-[11px] text-slate-500 font-medium mt-1">
+                  Upload excel atau kelola daftar pertanyaan.
                 </p>
               </div>
-              <div class="flex gap-3">
+              <div class="flex gap-2">
                 <button
-                  class="bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 px-4 py-2 rounded-xl font-bold flex items-center gap-2 text-sm shadow-sm transition-colors"
+                  class="bg-white border border-slate-200 text-slate-700 px-4 py-2 rounded-xl font-bold flex items-center gap-1.5 text-xs hover:bg-slate-50 transition-colors shadow-sm"
                 >
                   📄 Upload Excel
                 </button>
                 <button
-                  class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl font-bold shadow-md flex items-center gap-2 text-sm transition-colors"
+                  class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl font-bold shadow flex items-center gap-1.5 text-xs transition-colors"
                 >
                   ➕ Tambah Manual
                 </button>
@@ -1548,102 +1674,48 @@
             </div>
 
             <div
-              class="flex-1 bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden flex flex-col"
+              class="flex-1 bg-white/80 backdrop-blur-md border border-white rounded-2xl shadow-sm overflow-hidden flex flex-col"
             >
               <div class="overflow-y-auto flex-1 p-0 custom-scrollbar">
-                <table class="w-full text-left text-sm text-slate-600">
+                <table class="w-full text-left text-xs text-slate-600">
                   <thead
-                    class="bg-slate-100 text-xs uppercase font-black text-slate-500 sticky top-0 z-10"
+                    class="bg-slate-100/50 text-[10px] uppercase font-black text-slate-500 sticky top-0 z-10 border-b border-slate-200 backdrop-blur-md"
                   >
                     <tr>
-                      <th
-                        class="px-6 py-4 border-b border-slate-200 w-16 text-center"
-                      >
-                        No
-                      </th>
-                      <th class="px-6 py-4 border-b border-slate-200">
-                        Pertanyaan
-                      </th>
-                      <th class="px-6 py-4 border-b border-slate-200">
-                        Kunci Jawaban
-                      </th>
-                      <th
-                        class="px-6 py-4 border-b border-slate-200 w-32 text-center"
-                      >
-                        Tingkat
-                      </th>
-                      <th
-                        class="px-6 py-4 border-b border-slate-200 w-32 text-center"
-                      >
-                        Aksi
-                      </th>
+                      <th class="px-5 py-3 w-12 text-center">No</th>
+                      <th class="px-5 py-3">Pertanyaan</th>
+                      <th class="px-5 py-3 w-24 text-center">Tingkat</th>
+                      <th class="px-5 py-3 w-24 text-center">Aksi</th>
                     </tr>
                   </thead>
-                  <tbody class="divide-y divide-slate-100">
-                    <tr class="hover:bg-slate-50">
+                  <tbody class="divide-y divide-slate-100/50">
+                    <tr class="hover:bg-white transition-colors">
                       <td
-                        class="px-6 py-4 text-center font-bold text-slate-400"
+                        class="px-5 py-3 text-center font-bold text-slate-400"
                       >
                         1
                       </td>
-                      <td class="px-6 py-4 font-medium text-slate-800">
-                        Organel sel yang berfungsi sebagai tempat respirasi
-                        seluler...
+                      <td class="px-5 py-3 font-medium text-slate-800">
+                        Organel sel yang berfungsi sebagai tempat respirasi...
                       </td>
-                      <td class="px-6 py-4 text-emerald-600 font-bold">
-                        B. Mitokondria
-                      </td>
-                      <td class="px-6 py-4 text-center">
+                      <td class="px-5 py-3 text-center">
                         <span
-                          class="bg-green-100 text-green-700 px-2 py-1 rounded text-[10px] font-black uppercase"
+                          class="bg-green-100 text-green-700 px-2 py-0.5 rounded text-[9px] font-black uppercase"
                           >Mudah</span
                         >
                       </td>
                       <td
-                        class="px-6 py-4 text-center flex justify-center gap-2"
+                        class="px-5 py-3 text-center flex justify-center gap-1.5"
                       >
                         <button
-                          class="w-8 h-8 rounded bg-blue-50 text-blue-600 hover:bg-blue-100"
+                          class="w-7 h-7 rounded bg-blue-50 text-blue-600 hover:bg-blue-100 flex items-center justify-center"
                         >
-                          ✏️
+                          ✎
                         </button>
                         <button
-                          class="w-8 h-8 rounded bg-red-50 text-red-600 hover:bg-red-100"
+                          class="w-7 h-7 rounded bg-red-50 text-red-600 hover:bg-red-100 flex items-center justify-center"
                         >
-                          🗑️
-                        </button>
-                      </td>
-                    </tr>
-                    <tr class="hover:bg-slate-50">
-                      <td
-                        class="px-6 py-4 text-center font-bold text-slate-400"
-                      >
-                        2
-                      </td>
-                      <td class="px-6 py-4 font-medium text-slate-800">
-                        Bagian sel yang berfungsi mengatur pertukaran zat...
-                      </td>
-                      <td class="px-6 py-4 text-emerald-600 font-bold">
-                        C. Membran Sel
-                      </td>
-                      <td class="px-6 py-4 text-center">
-                        <span
-                          class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-[10px] font-black uppercase"
-                          >Sedang</span
-                        >
-                      </td>
-                      <td
-                        class="px-6 py-4 text-center flex justify-center gap-2"
-                      >
-                        <button
-                          class="w-8 h-8 rounded bg-blue-50 text-blue-600 hover:bg-blue-100"
-                        >
-                          ✏️
-                        </button>
-                        <button
-                          class="w-8 h-8 rounded bg-red-50 text-red-600 hover:bg-red-100"
-                        >
-                          🗑️
+                          ✕
                         </button>
                       </td>
                     </tr>
@@ -1657,222 +1729,215 @@
         <!-- GURU SCREEN 2: SETUP KELAS -->
         <div
           id="guru-s2-setup"
-          class="absolute inset-0 flex flex-col hidden bg-slate-50 z-10"
+          class="absolute inset-0 flex flex-col hidden bg-mesh z-10"
         >
           <header
-            class="bg-white border-b border-slate-200 px-8 py-4 flex items-center shrink-0"
+            class="glass-premium border-b border-white/50 px-8 py-3 flex items-center shrink-0"
           >
             <button
               onclick="navGuru('guru-s0-home')"
-              class="text-sm font-bold text-slate-500 hover:text-slate-800 flex items-center gap-2"
+              class="text-xs font-bold text-slate-500 hover:text-slate-800 flex items-center gap-1.5"
             >
               ← Ke Beranda
             </button>
           </header>
-          <div class="flex-1 p-8 overflow-y-auto">
-            <h2 class="text-2xl font-black text-slate-800 mb-6">
-              Setup Turnamen Baru
-            </h2>
+          <div
+            class="flex-1 p-8 overflow-y-auto flex items-center justify-center"
+          >
             <div
-              class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 max-w-2xl mx-auto w-full space-y-6"
+              class="glass-premium p-8 rounded-[2rem] max-w-md w-full shadow-lg border border-white"
             >
-              <div>
-                <label
-                  class="block text-[10px] font-black text-slate-500 mb-2 uppercase tracking-widest"
-                  >Nama Turnamen</label
+              <h2 class="text-xl font-black text-slate-800 mb-6 text-center">
+                Mulai Sesi Turnamen
+              </h2>
+              <div class="space-y-5">
+                <div>
+                  <label
+                    class="block text-[10px] font-black text-slate-400 mb-1.5 uppercase tracking-widest ml-1"
+                    >Nama Topik Sesi</label
+                  >
+                  <input
+                    type="text"
+                    value="Review Biologi Sel"
+                    class="w-full bg-white/80 border border-slate-200 rounded-xl p-3 text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50 shadow-inner"
+                  />
+                </div>
+                <div>
+                  <label
+                    class="block text-[10px] font-black text-slate-400 mb-1.5 uppercase tracking-widest ml-1"
+                    >Target Kelas</label
+                  >
+                  <select
+                    class="w-full bg-white/80 border border-slate-200 rounded-xl p-3 text-sm font-medium text-slate-800 focus:outline-none cursor-pointer shadow-inner"
+                  >
+                    <option>Kelas XI MIPA 1</option>
+                  </select>
+                </div>
+                <div>
+                  <label
+                    class="block text-[10px] font-black text-slate-400 mb-1.5 uppercase tracking-widest ml-1"
+                    >Gunakan Bank Soal</label
+                  >
+                  <select
+                    class="w-full bg-white/80 border border-slate-200 rounded-xl p-3 text-sm font-medium text-slate-800 focus:outline-none cursor-pointer shadow-inner"
+                  >
+                    <option>Paket Biologi Sel (40 Soal)</option>
+                  </select>
+                </div>
+                <button
+                  onclick="navGuru('guru-s3-waiting')"
+                  class="w-full py-4 mt-4 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-xl text-xs tracking-widest uppercase shadow-[0_4px_0_rgb(30,64,175)] active:translate-y-[4px] active:shadow-none transition-all"
                 >
-                <input
-                  type="text"
-                  placeholder="Misal: Review Biologi Sel"
-                  value="Review Biologi Sel"
-                  class="w-full border-2 border-slate-200 rounded-xl p-4 font-bold text-lg text-slate-800 focus:border-blue-500 outline-none transition-colors"
-                />
+                  BUAT ROOM (BUKA LOBI)
+                </button>
               </div>
-              <div>
-                <label
-                  class="block text-[10px] font-black text-slate-500 mb-2 uppercase tracking-widest"
-                  >Pilih Kelas</label
-                >
-                <select
-                  class="w-full border-2 border-slate-200 rounded-xl p-4 font-medium text-slate-800 focus:border-blue-500 outline-none transition-colors cursor-pointer"
-                >
-                  <option>Kelas XI MIPA 1</option>
-                  <option>Kelas XI MIPA 2</option>
-                </select>
-              </div>
-              <div>
-                <label
-                  class="block text-[10px] font-black text-slate-500 mb-2 uppercase tracking-widest"
-                  >Pilih Bank Soal</label
-                >
-                <select
-                  class="w-full border-2 border-slate-200 rounded-xl p-4 font-medium text-slate-800 focus:border-blue-500 outline-none transition-colors cursor-pointer"
-                >
-                  <option>Paket Biologi Sel (40 Soal)</option>
-                </select>
-              </div>
-              <button
-                onclick="navGuru('guru-s3-waiting')"
-                class="w-full py-4 mt-4 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-xl text-sm tracking-widest uppercase shadow-lg hover:-translate-y-1 transition-all active:scale-95"
-              >
-                BUAT RUANGAN (LOBI) ➔
-              </button>
             </div>
           </div>
         </div>
 
-        <!-- GURU SCREEN 3: LOBI TUNGGU (AVATARS) -->
+        <!-- GURU SCREEN 3: LOBI TUNGGU (DARK ESPORTS) -->
         <div
           id="guru-s3-waiting"
-          class="absolute inset-0 flex flex-col hidden bg-slate-50 z-10 p-8"
+          class="absolute inset-0 flex flex-col hidden bg-slate-950 z-10"
         >
           <div
-            class="flex flex-col items-center justify-center flex-1 w-full max-w-4xl mx-auto"
+            class="glass-dark px-8 py-6 border-b border-slate-800 flex justify-between items-center shrink-0 z-20"
           >
-            <h2 class="text-2xl font-black text-slate-800 mb-2">
-              Instruksikan siswa untuk bergabung di:
-            </h2>
-            <p
-              class="text-lg text-slate-500 font-bold mb-6 bg-slate-200 px-4 py-1 rounded-full"
-            >
-              etgt-arena.com
-            </p>
-
-            <div
-              class="bg-white border-4 border-yellow-400 rounded-[2rem] p-8 shadow-xl mb-8"
-            >
+            <div class="flex flex-col">
               <span
-                class="font-mono font-black text-slate-800 text-8xl tracking-widest"
-                >X7B9K2</span
+                class="text-slate-400 font-bold uppercase tracking-widest text-[10px] mb-1"
+                >Minta siswa gabung dengan PIN:</span
               >
-            </div>
-
-            <div
-              class="flex items-center gap-3 bg-blue-50 text-blue-700 px-6 py-2.5 rounded-full border border-blue-200 font-bold mb-6 shadow-sm"
-            >
-              <span class="animate-pulse text-lg">⏳</span> Menunggu Siswa
-              Masuk... (5/36)
-            </div>
-
-            <!-- Avatar Grid Kahoot Style -->
-            <div
-              class="w-full bg-white border border-slate-200 rounded-3xl p-8 shadow-sm min-h-[250px] mb-8"
-            >
-              <div class="flex flex-wrap justify-center gap-4">
-                <!-- Pop Anim -->
-                <div
-                  class="bg-slate-800 text-white pl-1.5 pr-4 py-1.5 rounded-full text-sm font-bold shadow-md animate-pop flex items-center gap-2 border border-slate-700"
-                >
-                  <div
-                    class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-lg"
-                  >
-                    👦
-                  </div>
-                  Budi Santoso
-                </div>
-                <div
-                  class="bg-slate-800 text-white pl-1.5 pr-4 py-1.5 rounded-full text-sm font-bold shadow-md animate-pop flex items-center gap-2 border border-slate-700"
-                  style="animation-delay: 0.1s"
-                >
-                  <div
-                    class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center text-lg"
-                  >
-                    👧
-                  </div>
-                  Siti Aminah
-                </div>
-                <div
-                  class="bg-slate-800 text-white pl-1.5 pr-4 py-1.5 rounded-full text-sm font-bold shadow-md animate-pop flex items-center gap-2 border border-slate-700"
-                  style="animation-delay: 0.2s"
-                >
-                  <div
-                    class="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center text-lg"
-                  >
-                    👦
-                  </div>
-                  Asep Surasep
-                </div>
-                <div
-                  class="bg-slate-800 text-white pl-1.5 pr-4 py-1.5 rounded-full text-sm font-bold shadow-md animate-pop flex items-center gap-2 border border-slate-700"
-                  style="animation-delay: 0.3s"
-                >
-                  <div
-                    class="w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center text-lg"
-                  >
-                    👦
-                  </div>
-                  Udin Sedunia
-                </div>
-
-                <div
-                  class="bg-slate-50 text-slate-400 px-5 py-3 rounded-full text-sm font-bold border-2 border-slate-200 border-dashed animate-pulse flex items-center gap-2"
-                >
-                  <span class="w-2 h-2 bg-slate-300 rounded-full"></span>
-                  <span class="w-2 h-2 bg-slate-300 rounded-full"></span>
-                  <span class="w-2 h-2 bg-slate-300 rounded-full"></span>
-                </div>
+              <div
+                class="font-mono font-black text-white text-5xl tracking-widest drop-shadow-[0_0_15px_rgba(250,204,21,0.5)] text-yellow-400"
+              >
+                X7B9K2
               </div>
             </div>
+            <div class="flex flex-col items-end gap-3">
+              <div
+                class="bg-blue-900/40 border border-blue-500/50 text-blue-300 px-4 py-2 rounded-xl flex items-center gap-2 font-bold text-xs shadow-sm"
+              >
+                <div
+                  class="w-3 h-3 rounded-full border-2 border-blue-400 border-t-transparent animate-spin"
+                ></div>
+                Menunggu Siswa... (34/36)
+              </div>
+              <button
+                onclick="navGuru('guru-s4-materi')"
+                class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-black rounded-lg text-xs tracking-widest uppercase shadow-md active:scale-95 transition-all"
+              >
+                Tutup Pintu & Mulai Materi ➔
+              </button>
+            </div>
+          </div>
 
-            <button
-              onclick="navGuru('guru-s4-materi')"
-              class="px-10 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-2xl text-sm tracking-widest uppercase shadow-lg hover:-translate-y-1 transition-transform active:scale-95 flex items-center gap-3"
-            >
-              Tutup Pintu & Mulai Materi <span>🔒</span>
-            </button>
+          <div
+            class="flex-1 p-8 overflow-y-auto custom-scrollbar relative z-10"
+          >
+            <div
+              class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-black z-0"
+            ></div>
+
+            <!-- Spawning Avatars -->
+            <div class="relative z-10 flex flex-wrap justify-center gap-4">
+              <div
+                class="bg-slate-800/80 backdrop-blur text-white pl-1.5 pr-4 py-1.5 rounded-full text-xs font-bold shadow-lg border border-slate-700 flex items-center gap-2 animate-pull-card shrink-0"
+              >
+                <img
+                  src="https://placehold.co/100x100/4f46e5/white?text=B"
+                  class="w-7 h-7 rounded-full border border-slate-600"
+                />
+                Budi Santoso
+              </div>
+              <div
+                class="bg-slate-800/80 backdrop-blur text-white pl-1.5 pr-4 py-1.5 rounded-full text-xs font-bold shadow-lg border border-slate-700 flex items-center gap-2 animate-pull-card shrink-0"
+                style="animation-delay: 0.1s"
+              >
+                <img
+                  src="https://placehold.co/100x100/f43f5e/white?text=S"
+                  class="w-7 h-7 rounded-full border border-slate-600"
+                />
+                Siti Aminah
+              </div>
+              <div
+                class="bg-slate-800/80 backdrop-blur text-white pl-1.5 pr-4 py-1.5 rounded-full text-xs font-bold shadow-lg border border-slate-700 flex items-center gap-2 animate-pull-card shrink-0"
+                style="animation-delay: 0.2s"
+              >
+                <img
+                  src="https://placehold.co/100x100/10b981/white?text=A"
+                  class="w-7 h-7 rounded-full border border-slate-600"
+                />
+                Asep Surasep
+              </div>
+              <div
+                class="bg-slate-800/80 backdrop-blur text-slate-500 pl-4 pr-4 py-2 rounded-full text-xs font-bold shadow-lg border border-slate-800 border-dashed shrink-0"
+              >
+                Mengetik PIN...
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- GURU SCREEN 4: FASE MATERI -->
         <div
           id="guru-s4-materi"
-          class="absolute inset-0 flex flex-col hidden bg-slate-900 z-10"
+          class="absolute inset-0 flex flex-col hidden bg-slate-950 z-10"
         >
           <header
-            class="bg-slate-800 px-8 py-5 flex justify-between items-center shrink-0 border-b border-slate-700 shadow-md"
+            class="glass-dark px-8 py-4 flex justify-between items-center shrink-0 border-b border-slate-800 shadow-lg relative z-20"
           >
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-3">
               <span
-                class="bg-red-500 text-white text-[10px] font-black uppercase tracking-widest px-2 py-1.5 rounded flex items-center gap-1.5"
+                class="bg-red-500 text-white text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded flex items-center gap-1 shadow-[0_0_10px_rgba(239,68,68,0.5)]"
                 ><span
                   class="w-1.5 h-1.5 bg-white rounded-full animate-ping"
                 ></span>
-                Live Session</span
+                Live</span
               >
-              <h2 class="text-xl font-bold text-white">
+              <h2 class="text-lg font-bold text-white">
                 Fase Pemberian Materi
               </h2>
             </div>
             <button
               onclick="navGuru('guru-s5-diskusi')"
-              class="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl shadow-md transition-colors text-sm border border-blue-400"
+              class="px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg text-xs transition-colors shadow-md"
             >
-              Mulai Sesi Diskusi ➔
+              Instruksikan Diskusi ➔
             </button>
           </header>
-          <div
-            class="flex-1 flex items-center justify-center p-8 relative overflow-hidden"
-          >
+          <div class="flex-1 flex items-center justify-center p-8 relative">
             <div
-              class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-800 to-slate-900"
+              class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-950/30 via-slate-950 to-black z-0"
             ></div>
-            <div class="text-center w-full max-w-2xl relative z-10">
+            <div
+              class="glass-dark p-10 rounded-[2.5rem] text-center max-w-lg shadow-2xl border border-slate-700 relative z-10"
+            >
               <div
-                class="bg-slate-800/80 backdrop-blur-sm border border-slate-700 p-12 rounded-3xl mb-8 shadow-2xl"
+                class="w-20 h-20 bg-slate-800 rounded-2xl flex items-center justify-center mb-5 mx-auto shadow-inner border border-slate-700"
               >
-                <div
-                  class="w-24 h-24 bg-slate-700 rounded-full flex items-center justify-center text-5xl mx-auto mb-6 shadow-inner border border-slate-600"
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-10 w-10 text-blue-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
                 >
-                  👩‍🏫
-                </div>
-                <h1 class="text-3xl font-black text-white mb-4">
-                  Layar Terkunci (Fokus Guru)
-                </h1>
-                <p class="text-slate-400 text-base leading-relaxed">
-                  Di layar siswa, aplikasi saat ini dikunci. Silakan berikan
-                  materi, presentasi, atau instruksi di depan kelas.
-                </p>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                  />
+                </svg>
               </div>
+              <h1 class="text-2xl font-black text-white mb-3">
+                Layar HP Siswa Dikunci
+              </h1>
+              <p class="text-slate-400 text-sm leading-relaxed">
+                Fokus siswa saat ini berada pada Anda. Silakan jelaskan materi
+                pelajaran di depan kelas.
+              </p>
             </div>
           </div>
         </div>
@@ -1880,208 +1945,162 @@
         <!-- GURU SCREEN 5: FASE DISKUSI (Timer) -->
         <div
           id="guru-s5-diskusi"
-          class="absolute inset-0 flex flex-col hidden bg-slate-900 z-10"
+          class="absolute inset-0 flex flex-col hidden bg-slate-950 z-10"
         >
           <header
-            class="bg-slate-800 px-8 py-5 flex justify-between items-center shrink-0 border-b border-slate-700 shadow-md"
+            class="glass-dark px-8 py-4 flex justify-between items-center shrink-0 border-b border-slate-800 shadow-lg relative z-20"
           >
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-3">
               <span
-                class="bg-amber-500 text-amber-950 text-[10px] font-black uppercase tracking-widest px-2 py-1.5 rounded flex items-center gap-1.5"
-                ><span class="text-xs">⏱️</span> Timer Aktif</span
+                class="bg-amber-500 text-amber-950 text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded"
+                >⏱️ Timer Aktif</span
               >
-              <h2 class="text-xl font-bold text-white">
-                Fase Diskusi (Kelompok Asal)
+              <h2 class="text-lg font-bold text-white">
+                Fase Diskusi Kelompok
               </h2>
             </div>
             <button
               onclick="navGuru('guru-s6-leaderboard')"
-              class="px-6 py-2.5 bg-gradient-to-b from-rose-500 to-red-700 hover:from-rose-400 hover:to-red-600 text-white font-black rounded-xl shadow-lg transition-colors text-sm border border-rose-400 uppercase tracking-wider"
+              class="px-5 py-2.5 bg-gradient-to-b from-rose-500 to-red-700 text-white font-black rounded-lg text-xs uppercase tracking-wider shadow-[0_4px_0_rgb(153,27,27)] active:translate-y-[2px] active:shadow-none transition-all"
             >
-              Acak Meja & MULAI TGT ⚔️
+              Acak Meja & Mulai TGT ⚔️
             </button>
           </header>
           <div
             class="flex-1 flex flex-col items-center justify-center p-8 relative"
           >
             <div
-              class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-800 to-slate-900"
+              class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-amber-950/20 via-slate-950 to-black z-0"
             ></div>
-            <div class="relative z-10 flex flex-col items-center">
+
+            <div class="relative z-10 text-center">
               <h2
-                class="text-xl font-black text-slate-400 mb-4 uppercase tracking-widest"
+                class="text-sm font-black text-slate-400 mb-4 uppercase tracking-widest bg-slate-800/80 px-4 py-1.5 rounded-full border border-slate-700 inline-block"
               >
-                Waktu Diskusi Kelompok
+                Waktu Siswa Belajar Bersama
               </h2>
-              <!-- Big Timer -->
               <div
-                class="font-mono text-[140px] font-black text-white leading-none mb-10 drop-shadow-[0_0_30px_rgba(59,130,246,0.3)]"
+                class="font-mono text-[120px] font-black text-white leading-none mb-8 drop-shadow-[0_0_30px_rgba(245,158,11,0.3)] tracking-tighter"
               >
                 14:59
               </div>
-              <div class="flex gap-4">
+              <div class="flex justify-center gap-3">
                 <button
-                  class="px-6 py-3 bg-slate-800 text-white font-bold rounded-xl hover:bg-slate-700 border border-slate-600 transition-colors shadow-sm text-sm"
+                  class="px-5 py-2 bg-slate-800 text-slate-300 font-bold rounded-lg hover:bg-slate-700 border border-slate-600 text-xs shadow-sm"
                 >
                   + 5 Menit
                 </button>
                 <button
-                  class="px-6 py-3 bg-slate-800 text-white font-bold rounded-xl hover:bg-slate-700 border border-slate-600 transition-colors shadow-sm text-sm"
+                  class="px-5 py-2 bg-slate-800 text-slate-300 font-bold rounded-lg hover:bg-slate-700 border border-slate-600 text-xs shadow-sm"
                 >
-                  - 1 Menit
+                  Jeda Waktu
                 </button>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- GURU SCREEN 6: LIVE LEADERBOARD (ESPORTS STYLE) -->
+        <!-- GURU SCREEN 6: LIVE LEADERBOARD (ESPORTS) -->
         <div
           id="guru-s6-leaderboard"
-          class="absolute inset-0 flex flex-col hidden bg-[#0f172a] overflow-hidden z-10"
+          class="absolute inset-0 flex flex-col hidden bg-[#0f172a] z-10"
         >
           <div
-            class="bg-slate-900 border-b border-slate-800 px-8 py-5 flex justify-between items-center shrink-0 shadow-2xl relative z-20"
+            class="glass-dark px-8 py-4 flex justify-between items-center shrink-0 shadow-2xl relative z-20 border-b border-slate-800"
           >
-            <div>
-              <h1
-                class="text-2xl font-black text-white uppercase tracking-widest drop-shadow-[0_2px_10px_rgba(59,130,246,0.8)] flex items-center gap-3"
-              >
-                <span
-                  class="w-3 h-3 bg-red-500 rounded-full animate-pulse"
-                ></span>
-                Live Klasemen
-              </h1>
-            </div>
+            <h1
+              class="text-lg font-black text-white uppercase tracking-widest flex items-center gap-2 drop-shadow-md"
+            >
+              <span
+                class="w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse"
+              ></span>
+              Live Klasemen Kelas
+            </h1>
             <button
               onclick="navGuru('guru-s7-history')"
-              class="bg-red-600 hover:bg-red-700 text-white font-black px-6 py-2.5 rounded-xl uppercase tracking-widest text-xs shadow-[0_0_15px_rgba(220,38,38,0.5)] transition-all border border-red-400"
+              class="bg-red-600 hover:bg-red-500 text-white font-black px-5 py-2 rounded-lg uppercase tracking-widest text-[10px] shadow-[0_0_10px_rgba(220,38,38,0.4)] transition-all"
             >
               Akhiri Turnamen
             </button>
           </div>
 
-          <div class="flex-1 flex overflow-hidden p-8 gap-8 relative">
+          <div class="flex-1 flex overflow-hidden p-8 gap-8 relative z-10">
             <div
-              class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/20 rounded-full blur-[100px] pointer-events-none"
+              class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"
             ></div>
 
-            <!-- Podium Left -->
-            <div class="flex-1 flex flex-col justify-end relative z-10">
-              <div class="flex justify-center items-end h-[400px] gap-6 mb-10">
-                <!-- Rank 2 -->
-                <div class="flex flex-col items-center w-36 relative group">
-                  <div
-                    class="bg-slate-800 border border-slate-600 px-4 py-3 rounded-2xl mb-4 text-center absolute -top-20 shadow-xl w-full group-hover:-translate-y-2 transition-transform"
-                  >
-                    <p class="font-black text-white text-sm mb-1">Kelompok 3</p>
-                    <p
-                      class="text-xs text-blue-400 font-bold bg-blue-900/50 py-0.5 rounded"
-                    >
-                      1,850 pt
-                    </p>
-                  </div>
-                  <div
-                    class="w-full h-[60%] bg-gradient-to-t from-slate-800 to-slate-700 rounded-t-2xl border-t-4 border-slate-400 shadow-[0_0_30px_rgba(148,163,184,0.2)] flex justify-center pt-6"
-                  >
-                    <span class="text-5xl font-black text-slate-400 opacity-50"
-                      >2</span
-                    >
-                  </div>
-                </div>
-                <!-- Rank 1 -->
+            <!-- Podium -->
+            <div
+              class="flex-1 flex justify-center items-end h-[350px] gap-4 mb-4 relative z-10 mt-auto"
+            >
+              <!-- Rank 2 -->
+              <div class="flex flex-col items-center w-28 relative group">
                 <div
-                  class="flex flex-col items-center w-44 relative z-10 group"
+                  class="glass-dark px-3 py-2 rounded-xl mb-3 text-center absolute -top-16 w-full shadow-lg"
+                >
+                  <p class="font-black text-white text-[10px] mb-0.5">Kel. 3</p>
+                  <p
+                    class="text-[9px] text-blue-400 font-bold bg-blue-900/50 py-0.5 rounded"
+                  >
+                    1,850 pt
+                  </p>
+                </div>
+                <div
+                  class="w-full h-[60%] bg-gradient-to-t from-slate-800 to-slate-700 rounded-t-xl border-t-2 border-slate-400 flex justify-center pt-4"
+                >
+                  <span class="text-3xl font-black text-slate-400 opacity-50"
+                    >2</span
+                  >
+                </div>
+              </div>
+              <!-- Rank 1 -->
+              <div class="flex flex-col items-center w-36 relative z-10 group">
+                <div
+                  class="glass-dark border border-yellow-500/30 px-3 py-3 rounded-xl mb-3 text-center absolute -top-20 w-full shadow-[0_0_20px_rgba(234,179,8,0.2)]"
                 >
                   <div
-                    class="bg-slate-800 border border-yellow-500/50 px-4 py-4 rounded-2xl mb-4 text-center absolute -top-24 shadow-[0_0_40px_rgba(234,179,8,0.3)] w-full group-hover:-translate-y-2 transition-transform"
+                    class="absolute -top-4 left-1/2 -translate-x-1/2 text-2xl drop-shadow-md"
                   >
-                    <div
-                      class="absolute -top-5 left-1/2 -translate-x-1/2 text-3xl drop-shadow-md"
-                    >
-                      👑
-                    </div>
-                    <p class="font-black text-yellow-400 text-base mb-1">
-                      Kelompok 1
-                    </p>
-                    <p
-                      class="text-sm text-white font-bold bg-yellow-900/50 py-0.5 rounded"
-                    >
-                      2,400 pt
-                    </p>
+                    👑
                   </div>
-                  <div
-                    class="w-full h-[85%] bg-gradient-to-t from-yellow-900 to-yellow-600 rounded-t-2xl border-t-4 border-yellow-400 shadow-[0_0_50px_rgba(234,179,8,0.4)] flex justify-center pt-6"
+                  <p class="font-black text-yellow-400 text-xs mb-0.5">
+                    Kel. 1
+                  </p>
+                  <p
+                    class="text-[10px] text-white font-bold bg-yellow-900/50 py-0.5 rounded"
                   >
-                    <span
-                      class="text-6xl font-black text-yellow-300 drop-shadow-md"
-                      >1</span
-                    >
-                  </div>
+                    2,400 pt
+                  </p>
                 </div>
-                <!-- Rank 3 -->
-                <div class="flex flex-col items-center w-36 relative group">
-                  <div
-                    class="bg-slate-800 border border-orange-700/50 px-4 py-3 rounded-2xl mb-4 text-center absolute -top-20 shadow-xl w-full group-hover:-translate-y-2 transition-transform"
+                <div
+                  class="w-full h-[85%] bg-gradient-to-t from-yellow-900 to-yellow-600 rounded-t-xl border-t-2 border-yellow-400 shadow-[0_0_30px_rgba(234,179,8,0.3)] flex justify-center pt-4"
+                >
+                  <span
+                    class="text-4xl font-black text-yellow-300 drop-shadow-md"
+                    >1</span
                   >
-                    <p class="font-black text-white text-sm mb-1">Kelompok 5</p>
-                    <p
-                      class="text-xs text-orange-400 font-bold bg-orange-950 py-0.5 rounded"
-                    >
-                      1,620 pt
-                    </p>
-                  </div>
-                  <div
-                    class="w-full h-[45%] bg-gradient-to-t from-orange-950 to-orange-800 rounded-t-2xl border-t-4 border-orange-500 shadow-[0_0_30px_rgba(249,115,22,0.2)] flex justify-center pt-6"
-                  >
-                    <span class="text-5xl font-black text-orange-400 opacity-80"
-                      >3</span
-                    >
-                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- Others Right -->
+            <!-- Others Ranking -->
             <div
-              class="w-80 bg-slate-800/80 backdrop-blur-md border border-slate-700 rounded-3xl p-6 relative z-10 flex flex-col shadow-2xl"
+              class="w-64 glass-dark rounded-2xl p-5 relative z-10 flex flex-col border border-slate-700 shadow-xl"
             >
               <h3
-                class="font-black text-slate-400 uppercase tracking-widest text-xs mb-4 pb-3 border-b border-slate-700"
+                class="font-black text-slate-400 uppercase tracking-widest text-[9px] mb-3 pb-2 border-b border-slate-700"
               >
                 Peringkat Lainnya
               </h3>
-              <div
-                class="flex-1 overflow-y-auto space-y-3 custom-scrollbar pr-2"
-              >
+              <div class="flex-1 overflow-y-auto space-y-2 custom-scrollbar">
                 <div
-                  class="bg-slate-900/80 border border-slate-700 rounded-xl p-4 flex justify-between items-center hover:border-slate-500 transition-colors"
+                  class="bg-slate-800/50 border border-slate-700 rounded-lg p-3 flex justify-between items-center text-xs shadow-sm"
                 >
-                  <span class="font-bold text-slate-300 flex items-center gap-3"
-                    ><span class="text-slate-500 font-black w-4 text-center"
-                      >4</span
-                    >
-                    Kelompok 2</span
-                  >
+                  <span class="font-bold text-slate-300">4. Kel. 2</span>
                   <div
-                    class="text-sm font-black text-white bg-slate-800 px-2 py-1 rounded"
+                    class="font-black text-white bg-slate-800 px-1.5 py-0.5 rounded"
                   >
                     1,200
-                  </div>
-                </div>
-                <div
-                  class="bg-slate-900/80 border border-slate-700 rounded-xl p-4 flex justify-between items-center hover:border-slate-500 transition-colors"
-                >
-                  <span class="font-bold text-slate-300 flex items-center gap-3"
-                    ><span class="text-slate-500 font-black w-4 text-center"
-                      >5</span
-                    >
-                    Kelompok 4</span
-                  >
-                  <div
-                    class="text-sm font-black text-white bg-slate-800 px-2 py-1 rounded"
-                  >
-                    850
                   </div>
                 </div>
               </div>
@@ -2092,56 +2111,47 @@
         <!-- GURU SCREEN 7: RIWAYAT THUMBNAILS -->
         <div
           id="guru-s7-history"
-          class="absolute inset-0 flex flex-col hidden bg-slate-50 p-8 z-10"
+          class="absolute inset-0 flex flex-col hidden bg-mesh p-8 z-10"
         >
-          <header class="flex justify-between items-center mb-8 shrink-0">
-            <div>
-              <h2 class="text-2xl font-black text-slate-800">
-                Riwayat Turnamen
-              </h2>
-              <p class="text-sm text-slate-500 font-medium mt-1">
-                Pilih turnamen untuk melihat rekapitulasi nilai dan mengunduh
-                Excel.
-              </p>
-            </div>
+          <header class="flex justify-between items-center mb-6 shrink-0">
+            <h2 class="text-xl font-black text-slate-800">Riwayat Turnamen</h2>
             <button
               onclick="navGuru('guru-s0-home')"
-              class="px-5 py-2.5 bg-white border border-slate-200 hover:bg-slate-100 text-slate-600 font-bold rounded-xl transition-colors shadow-sm text-sm"
+              class="px-4 py-2 bg-white border border-slate-200 text-slate-600 font-bold rounded-xl shadow-sm text-xs hover:bg-slate-50 transition-colors"
             >
               🏠 Ke Beranda
             </button>
           </header>
 
           <div
-            class="grid grid-cols-3 gap-6 flex-1 overflow-y-auto custom-scrollbar"
+            class="grid grid-cols-3 gap-5 flex-1 overflow-y-auto custom-scrollbar"
           >
-            <!-- Thumbnail -->
             <div
               onclick="navGuru('guru-s8-detailreport')"
-              class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-blue-400 transition-all cursor-pointer group h-fit relative overflow-hidden"
+              class="glass-premium rounded-[1.5rem] p-5 hover:shadow-lg hover:border-blue-300 transition-all cursor-pointer group h-fit relative overflow-hidden border border-white"
             >
-              <div class="absolute left-0 top-0 w-1.5 h-full bg-blue-500"></div>
+              <div class="absolute left-0 top-0 w-2 h-full bg-blue-500"></div>
               <div
-                class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform"
+                class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-lg mb-3 border border-blue-100 group-hover:scale-110 transition-transform"
               >
                 🏆
               </div>
-              <h3 class="font-black text-slate-800 text-lg mb-1">
+              <h3 class="font-black text-slate-800 text-base mb-0.5">
                 Review Biologi Sel
               </h3>
               <p
-                class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-5"
+                class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4"
               >
                 Kelas XI MIPA 1
               </p>
               <div
-                class="flex justify-between items-center border-t border-slate-100 pt-4"
+                class="flex justify-between items-center border-t border-slate-200/50 pt-3"
               >
-                <span class="text-[10px] text-slate-400 font-bold uppercase"
+                <span class="text-[9px] text-slate-400 font-bold uppercase"
                   >Selesai: Hari ini</span
                 >
                 <span
-                  class="text-xs font-black text-blue-600 bg-blue-50 px-2 py-1 rounded"
+                  class="text-[10px] font-black text-blue-600 bg-white px-2 py-1 rounded shadow-sm border border-blue-100"
                   >Detail ➔</span
                 >
               </div>
@@ -2149,121 +2159,68 @@
           </div>
         </div>
 
-        <!-- GURU SCREEN 8: DETAIL REPORT & EXCEL -->
+        <!-- GURU SCREEN 8: DETAIL REPORT (Table) -->
         <div
           id="guru-s8-detailreport"
-          class="absolute inset-0 flex flex-col hidden bg-slate-50 p-8 z-10"
+          class="absolute inset-0 flex flex-col hidden bg-mesh p-8 z-10"
         >
-          <div class="flex justify-between items-center mb-6 shrink-0">
+          <div class="flex justify-between items-end mb-5 shrink-0">
             <div>
               <button
                 onclick="navGuru('guru-s7-history')"
-                class="text-xs font-black text-blue-600 hover:text-blue-700 mb-2 flex items-center gap-1 uppercase tracking-widest"
+                class="text-[10px] font-black text-blue-600 mb-1.5 flex items-center gap-1 uppercase tracking-widest bg-blue-50 px-2 py-0.5 rounded-md w-fit hover:bg-blue-100 transition-colors"
               >
-                ← Kembali ke Riwayat
+                ← Kembali
               </button>
-              <h2 class="text-2xl font-black text-slate-800">
-                Rekapitulasi Hasil Akhir
+              <h2 class="text-xl font-black text-slate-800">
+                Rekapitulasi Nilai Akhir
               </h2>
-              <p class="text-sm text-slate-500 font-medium mt-1">
-                Review Biologi Sel • Kelas XI MIPA 1
-              </p>
             </div>
             <button
-              class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-md active:scale-95 transition-all flex items-center gap-2 text-sm border border-emerald-500"
+              class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-md active:scale-95 transition-all flex items-center gap-1.5 text-xs"
             >
-              <span>📥</span> Unduh ke Excel
+              📥 Unduh Excel
             </button>
           </div>
 
           <div
-            class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden flex-1 flex flex-col"
+            class="glass-premium border border-white rounded-2xl shadow-sm overflow-hidden flex-1 flex flex-col"
           >
             <div class="overflow-y-auto custom-scrollbar p-0">
-              <table class="w-full text-left text-sm text-slate-600">
+              <table class="w-full text-left text-xs text-slate-600">
                 <thead
-                  class="bg-slate-100 text-[10px] uppercase font-black text-slate-500 sticky top-0 z-10 tracking-widest"
+                  class="bg-slate-100/50 text-[9px] uppercase font-black text-slate-500 sticky top-0 border-b border-slate-200 backdrop-blur-md"
                 >
                   <tr>
-                    <th
-                      class="px-6 py-4 border-b border-slate-200 w-16 text-center"
-                    >
+                    <th class="px-5 py-4 text-center border-b border-slate-200">
                       No
                     </th>
-                    <th class="px-6 py-4 border-b border-slate-200">
+                    <th class="px-5 py-4 border-b border-slate-200">
                       Nama Siswa
                     </th>
-                    <th class="px-6 py-4 border-b border-slate-200">
-                      Kelompok Asal
-                    </th>
-                    <th class="px-6 py-4 border-b border-slate-200 text-center">
-                      Meja Turnamen
-                    </th>
-                    <th class="px-6 py-4 border-b border-slate-200 text-right">
+                    <th class="px-5 py-4 text-right border-b border-slate-200">
                       Skor Personal
                     </th>
-                    <th class="px-6 py-4 border-b border-slate-200 text-right">
-                      Poin untuk Tim
+                    <th class="px-5 py-4 text-right border-b border-slate-200">
+                      Poin Tim
                     </th>
                   </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-100">
-                  <tr class="hover:bg-slate-50">
-                    <td class="px-6 py-4 text-center font-bold text-slate-400">
+                <tbody class="divide-y divide-slate-100/50">
+                  <tr class="hover:bg-white transition-colors">
+                    <td class="px-5 py-3 text-center font-bold text-slate-400">
                       1
                     </td>
-                    <td class="px-6 py-4 font-black text-slate-800">
+                    <td class="px-5 py-3 font-black text-slate-800">
                       Budi Santoso
                     </td>
-                    <td class="px-6 py-4">
-                      <span
-                        class="bg-blue-50 text-blue-700 border border-blue-100 px-2.5 py-1 rounded text-[10px] font-black uppercase"
-                        >K1 (Kancil)</span
-                      >
-                    </td>
-                    <td
-                      class="px-6 py-4 text-center text-xs font-bold text-slate-600"
-                    >
-                      Meja 1 (Ahli)
-                    </td>
-                    <td
-                      class="px-6 py-4 text-right font-mono font-bold text-slate-800"
-                    >
+                    <td class="px-5 py-3 text-right font-mono font-bold">
                       850
                     </td>
                     <td
-                      class="px-6 py-4 text-right font-black text-emerald-600"
+                      class="px-5 py-3 text-right font-black text-emerald-600"
                     >
-                      +60 (Penuh)
-                    </td>
-                  </tr>
-                  <tr class="hover:bg-slate-50">
-                    <td class="px-6 py-4 text-center font-bold text-slate-400">
-                      2
-                    </td>
-                    <td class="px-6 py-4 font-black text-slate-800">
-                      Siti Aminah
-                    </td>
-                    <td class="px-6 py-4">
-                      <span
-                        class="bg-amber-50 text-amber-700 border border-amber-100 px-2.5 py-1 rounded text-[10px] font-black uppercase"
-                        >K3 (Beruang)</span
-                      >
-                    </td>
-                    <td
-                      class="px-6 py-4 text-center text-xs font-bold text-slate-600"
-                    >
-                      Meja 1 (Ahli)
-                    </td>
-                    <td
-                      class="px-6 py-4 text-right font-mono font-bold text-slate-800"
-                    >
-                      720
-                    </td>
-                    <td
-                      class="px-6 py-4 text-right font-black text-emerald-600"
-                    >
-                      +40
+                      +60
                     </td>
                   </tr>
                 </tbody>
@@ -2276,7 +2233,7 @@
 
     <script>
       window.onload = () => {
-        switchRole("siswa"); // Set default ke siswa agar langsung lihat perubahannya
+        switchRole("siswa");
       };
 
       function switchRole(role) {
@@ -2289,26 +2246,22 @@
 
         if (role === "siswa") {
           btnSiswa.className =
-            "px-5 py-2 text-sm font-bold rounded-md bg-blue-600 text-white shadow transition-all";
+            "px-4 py-2 text-xs font-bold rounded-md bg-blue-600 text-white shadow-md transition-all";
           btnGuru.className =
-            "px-5 py-2 text-sm font-bold rounded-md text-slate-400 hover:text-white transition-all";
-          viewSiswa.classList.remove("hidden");
-          viewGuru.classList.add("hidden");
-          extNavSiswa.classList.remove("hidden");
-          extNavSiswa.classList.add("flex");
-          extNavGuru.classList.add("hidden");
-          extNavGuru.classList.remove("flex");
+            "px-4 py-2 text-xs font-bold rounded-md text-slate-400 hover:text-white transition-all";
+          viewSiswa.style.display = "flex";
+          viewGuru.style.display = "none";
+          extNavSiswa.style.display = "flex";
+          extNavGuru.style.display = "none";
         } else {
           btnGuru.className =
-            "px-5 py-2 text-sm font-bold rounded-md bg-blue-600 text-white shadow transition-all";
+            "px-4 py-2 text-xs font-bold rounded-md bg-blue-600 text-white shadow-md transition-all";
           btnSiswa.className =
-            "px-5 py-2 text-sm font-bold rounded-md text-slate-400 hover:text-white transition-all";
-          viewGuru.classList.remove("hidden");
-          viewSiswa.classList.add("hidden");
-          extNavGuru.classList.remove("hidden");
-          extNavGuru.classList.add("flex");
-          extNavSiswa.classList.add("hidden");
-          extNavSiswa.classList.remove("flex");
+            "px-4 py-2 text-xs font-bold rounded-md text-slate-400 hover:text-white transition-all";
+          viewGuru.style.display = "flex";
+          viewSiswa.style.display = "none";
+          extNavSiswa.style.display = "none";
+          extNavGuru.style.display = "flex";
         }
       }
 
@@ -2319,15 +2272,16 @@
           "siswa-s0-shop",
           "siswa-s0-history",
           "siswa-s2-asal",
-          "siswa-s3-meja",
+          "siswa-s3-meja-aktif",
+          "siswa-s3-meja-pasif",
           "siswa-s4-hasil",
         ];
         screens.forEach((id) => {
           const el = document.getElementById(id);
-          if (el) el.classList.add("hidden");
+          if (el) el.style.display = "none";
         });
         const target = document.getElementById(screenId);
-        if (target) target.classList.remove("hidden");
+        if (target) target.style.display = "flex";
       }
 
       function navGuru(screenId) {
@@ -2345,10 +2299,10 @@
         ];
         screens.forEach((id) => {
           const el = document.getElementById(id);
-          if (el) el.classList.add("hidden");
+          if (el) el.style.display = "none";
         });
         const target = document.getElementById(screenId);
-        if (target) target.classList.remove("hidden");
+        if (target) target.style.display = "flex";
       }
     </script>
   </body>
